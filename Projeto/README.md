@@ -13,3 +13,9 @@
     <Tela 1: Leitor de QR code >
       < Após validação: Abrir Tela 1 do RA >
 </details>
+
+
+<details>
+<summary>User history</summary>
+  ![UserHist](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/Projeto/userHistories.png?raw=true)
+</details>
