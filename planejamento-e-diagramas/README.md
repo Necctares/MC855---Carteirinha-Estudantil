@@ -1,5 +1,9 @@
 # Projeto do App
 
+## Sketch do Projeto
+
+![skecth](archSktch.jpg)
+
 <details>
 <summary>MainActivity</summary>
   <Login>
@@ -17,5 +21,7 @@
 
 <details>
 <summary>User history</summary>
-  ![UserHist](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/Projeto/userHistories.png?raw=true)
+
+  ![UserHist](userHistories.png)
+  
 </details>
