@@ -2,7 +2,7 @@
 
 ## Sketch do Projeto
 
-![skecth](archSktch.jpg)
+![skecth](arch.jpg)
 
 <details>
 <summary>MainActivity</summary>
