@@ -1,9 +1,13 @@
+package com.unicamp.controller;
+
+import com.unicamp.service.QRCodeService;
+
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
@@ -15,10 +19,10 @@ import java.io.IOException;
 public class QRCodeController {
 
     // Show QR Code on browser
-    @RequestMapping(value="/QRCode", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
-    public void getQRCode(HttpServletResponse response) throws IOException {
+    @GetMapping(value="/QRCode", produces = MediaType.IMAGE_JPEG_VALUE)
+    public void getQRCode(HttpServletResponse response, @RequestParam String url) throws IOException {
         response.setContentType("image/jpeg");
-        ByteArrayInputStream in = QRCodeService.generateQRCode("Hello world!");
+        ByteArrayInputStream in = QRCodeService.generateQRCode(url);
         IOUtils.copy(in, response.getOutputStream());
     }
 
