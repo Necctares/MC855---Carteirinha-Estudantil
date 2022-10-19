@@ -1,12 +1,7 @@
 package com.unicamp.controller;
 
-<<<<<<<< HEAD:carteirinhaBack/src/main/java/com.unicamp/controller/QRCodeController.java
 import com.unicamp.service.QRCodeService;
-
-========
->>>>>>>> 7dc68af (Refatorado diretorio):carteirinhaBack/src/main/java/com/unicamp/controller/QRCodeController.java
 import org.apache.tomcat.util.http.fileupload.IOUtils;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,9 +22,4 @@ public class QRCodeController {
         ByteArrayInputStream in = QRCodeService.generateQRCode(url);
         IOUtils.copy(in, response.getOutputStream());
     }
-
-    public static void main(String[] args) {
-        SpringApplication.run(QRCodeController.class, args);
-    }
-
 }

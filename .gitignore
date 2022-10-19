@@ -11,6 +11,8 @@
 migrate_working_dir/
 *.vscode/
 *.gradle/
+*build/
+
 
 # IntelliJ related
 *.iml

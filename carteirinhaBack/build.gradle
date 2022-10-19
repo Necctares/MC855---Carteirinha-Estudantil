@@ -27,10 +27,10 @@ test {
 }
 
 tasks.named("bootRun") {
-	mainClass = 'com.unicamp.ExampleApplication'
+	mainClass = 'com.unicamp.App'
 }
 
 sourceSets {
         main.java.srcDirs = ['src/main/java']
-        main.resources.srcDirs = ['src/resources']
+        main.resources.srcDirs = ['src/main/resources']
     }
