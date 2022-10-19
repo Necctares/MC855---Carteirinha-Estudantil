@@ -1,4 +1,4 @@
-package com.unicamp.Entity;
+package com.unicamp.entity;
 
 import java.sql.Date;
 
