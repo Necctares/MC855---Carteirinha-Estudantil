@@ -9,12 +9,10 @@ class recarregarValor extends StatefulWidget {
 }
 
 class _recarregarValorState extends State<recarregarValor> {
-
   void _recarregar() {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (context) {
-
           return recarregarQR();
         },
       ),
@@ -25,15 +23,6 @@ class _recarregarValorState extends State<recarregarValor> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: SizedBox(
-          height: 100,
-          width: 100,
-          child: IconButton(
-            icon: const Icon(Icons.list),
-            onPressed: () {},
-            tooltip: 'Menu lateral',
-          ),
-        ),
         actions: [
           Image.asset('assets/images/logounicamp.png'),
         ],
@@ -56,16 +45,20 @@ class _recarregarValorState extends State<recarregarValor> {
             SizedBox(
               height: 200,
             ),
-            TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'valor',
+            Transform.scale(
+              scaleX: 0.9,
+              child: TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Valor',
+                ),
               ),
             ),
             SizedBox(
               height: 200,
             ),
-            ElevatedButton(onPressed: _recarregar, child: Text('Gerar QR Code')),
+            ElevatedButton(
+                onPressed: _recarregar, child: Text('Gerar QR Code')),
           ],
         ),
       ),

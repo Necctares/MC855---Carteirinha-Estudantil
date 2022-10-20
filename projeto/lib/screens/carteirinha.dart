@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/screens/mainMenu.dart';
+import 'package:untitled/screens/menuLateral.dart';
 import 'fotoCarteirinha.dart';
 
 class carteirinha extends StatefulWidget {
@@ -10,12 +11,10 @@ class carteirinha extends StatefulWidget {
 }
 
 class _carteirinhaState extends State<carteirinha> {
-
   void _voltarMenu() {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (context) {
-
           return mainMenu();
         },
       ),
@@ -23,29 +22,16 @@ class _carteirinhaState extends State<carteirinha> {
   }
 
   void _visualizarCarteirinha() {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (context) {
-
-          return fotoCarteirinha();
-        }
-      )
-    );
+    Navigator.of(context).push(MaterialPageRoute<void>(builder: (context) {
+      return fotoCarteirinha();
+    }));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: menuLateral(),
       appBar: AppBar(
-        leading: SizedBox(
-          height: 100,
-          width: 100,
-          child: IconButton(
-            icon: const Icon(Icons.list),
-            onPressed: () {},
-            tooltip: 'Menu lateral',
-          ),
-        ),
         actions: [
           Image.asset('assets/images/logounicamp.png'),
         ],
@@ -72,11 +58,14 @@ class _carteirinhaState extends State<carteirinha> {
             SizedBox(
               height: 75,
             ),
-            ElevatedButton(onPressed: _visualizarCarteirinha, child: Text('Visualizar carteirinha')),
+            ElevatedButton(
+                onPressed: _visualizarCarteirinha,
+                child: Text('Visualizar carteirinha')),
             SizedBox(
               height: 20,
             ),
-            ElevatedButton(onPressed: _voltarMenu, child: Text('Retornar à tela inicial')),
+            ElevatedButton(
+                onPressed: _voltarMenu, child: Text('Retornar à tela inicial')),
           ],
         ),
       ),

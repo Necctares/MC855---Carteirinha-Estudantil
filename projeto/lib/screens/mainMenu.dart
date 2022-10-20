@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'menuLateral.dart';
 import 'carteirinha.dart';
 import 'recarregarValor.dart';
 import 'pagamentoQR.dart';
 import 'usuarioInfo.dart';
 
 class mainMenu extends StatefulWidget {
-  const mainMenu({super.key, /*required this.inform*/});
+  const mainMenu({
+    super.key,
+    /*required this.inform*/
+  });
 
   //final usuarioInfo inform;
 
@@ -14,12 +18,10 @@ class mainMenu extends StatefulWidget {
 }
 
 class _mainMenuState extends State<mainMenu> {
-
   void _autentificar() {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (context) {
-
           return carteirinha();
         },
       ),
@@ -30,7 +32,6 @@ class _mainMenuState extends State<mainMenu> {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (context) {
-
           return recarregarValor();
         },
       ),
@@ -41,7 +42,6 @@ class _mainMenuState extends State<mainMenu> {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (context) {
-
           return pagamentoQR();
         },
       ),
@@ -51,44 +51,33 @@ class _mainMenuState extends State<mainMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: menuLateral(),
       appBar: AppBar(
-        leading: SizedBox(
-          height: 100,
-          width: 100,
-          child: IconButton(
-            icon: const Icon(Icons.list),
-            onPressed: () {},
-            tooltip: 'Menu lateral',
-          ),
-        ),
         actions: [
           Image.asset('assets/images/logounicamp.png'),
         ],
       ),
       body: SizedBox(
         width: double.infinity,
-        child:
-        Column(
+        child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              ClipRRect(
-                borderRadius: BorderRadius.circular(100),
-                child: Image.asset('assets/images/fotoperfil.jpeg',
-                  width: 200,
-                  height: 200,),
+              CircleAvatar(
+                foregroundImage: AssetImage('assets/images/fotoperfil.jpeg'),
+                radius: 100,
               ),
               SizedBox(
-                height:10,
+                height: 10,
               ),
               Wrap(
                 alignment: WrapAlignment.center,
                 direction: Axis.vertical,
                 spacing: 10,
                 children: <Widget>[
-                  Text('Nome: '+ 'Renan Hiroki'),
+                  Text('Nome: ' + 'Renan Hiroki'),
                   Text('Matrícula: 123456'),
-                  Text('Crédito: R\$12,00')
+                  Text('Crédito: R\$ 8,00')
                 ],
               ),
               SizedBox(
@@ -104,25 +93,21 @@ class _mainMenuState extends State<mainMenu> {
                       child: Text('Carteirinha Digital'),
                     ),
                     ElevatedButton(
-                        onPressed: _recarregar,
-                        child: Text('Adicionar saldo')
-                    )
-                  ]
-              ),
+                        onPressed: _recarregar, child: Text('Adicionar saldo'))
+                  ]),
               SizedBox(
-                height:25,
+                height: 25,
               ),
               Wrap(
                 alignment: WrapAlignment.spaceBetween,
-                children: <Widget> [
+                children: <Widget>[
                   ElevatedButton(
                     onPressed: _pagar,
                     child: Text('Realizar Pagamento'),
                   ),
                 ],
               ),
-            ]
-        ),
+            ]),
       ),
     );
   }

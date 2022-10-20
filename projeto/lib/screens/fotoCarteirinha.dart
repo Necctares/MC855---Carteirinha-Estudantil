@@ -9,12 +9,10 @@ class fotoCarteirinha extends StatefulWidget {
 }
 
 class _fotoCarteirinhaState extends State<fotoCarteirinha> {
-
   void _voltarMenu() {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (context) {
-
           return mainMenu();
         },
       ),
@@ -25,15 +23,6 @@ class _fotoCarteirinhaState extends State<fotoCarteirinha> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: SizedBox(
-          height: 100,
-          width: 100,
-          child: IconButton(
-            icon: const Icon(Icons.list),
-            onPressed: () {},
-            tooltip: 'Menu lateral',
-          ),
-        ),
         actions: [
           Image.asset('assets/images/logounicamp.png'),
         ],
@@ -47,14 +36,14 @@ class _fotoCarteirinhaState extends State<fotoCarteirinha> {
               height: 25,
             ),
             SizedBox(
-              height: 500,
-              width: 500,
-            child: Image.asset('assets/images/carteirinha.jpeg')
-            ),
+                height: 500,
+                width: 500,
+                child: Image.asset('assets/images/carteirinha.jpeg')),
             SizedBox(
               height: 25,
             ),
-            ElevatedButton(onPressed: _voltarMenu, child: Text('Retornar à tela inicial')),
+            ElevatedButton(
+                onPressed: _voltarMenu, child: Text('Retornar à tela inicial')),
           ],
         ),
       ),

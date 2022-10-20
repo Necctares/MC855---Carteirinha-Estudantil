@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class recarregarQR extends StatefulWidget {
   const recarregarQR({Key? key}) : super(key: key);
@@ -7,20 +10,42 @@ class recarregarQR extends StatefulWidget {
   State<recarregarQR> createState() => _recarregarQRState();
 }
 
-class _recarregarQRState extends State<recarregarQR> {
+class _recarregarQRState extends State<recarregarQR>
+    with TickerProviderStateMixin {
+  var codigoPix = '00020101021226770014BR.GOV.BCB.P...';
+  Duration timerDuration = Duration(minutes: 5);
+  late AnimationController controller;
+
+  @override
+  void initState() {
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(minutes: 5),
+    )..addListener(() {
+        setState(() {});
+      });
+    controller.reverse(from: 1);
+    Timer timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (timerDuration.inSeconds > 0)
+        timerDuration = Duration(seconds: timerDuration.inSeconds - 1);
+      else
+        timer.cancel();
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  format(Duration d) => d.toString().split('.').first.padLeft(8, "0");
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: SizedBox(
-          height: 100,
-          width: 100,
-          child: IconButton(
-            icon: const Icon(Icons.list),
-            onPressed: () {},
-            tooltip: 'Menu lateral',
-          ),
-        ),
         actions: [
           Image.asset('assets/images/logounicamp.png'),
         ],
@@ -57,42 +82,52 @@ class _recarregarQRState extends State<recarregarQR> {
             SizedBox(
               height: 25,
             ),
-            TextField(
-              readOnly: true,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: '00020101021226770014BR.GOV.BCB.P...',
+            Transform.scale(
+              scaleX: 0.9,
+              child: TextField(
+                readOnly: true,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: codigoPix,
+                ),
               ),
             ),
             SizedBox(
               height: 10,
             ),
             Text(
-              'tempo para pagar: 3:23',
+              'Tempo para pagar: ${format(timerDuration)}',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 15,
               ),
             ),
-        SizedBox(
-            height: 50,
-        ),
-        Wrap(
-            alignment: WrapAlignment.center,
-            spacing: 50,
-            direction: Axis.horizontal,
-            children: <Widget>[
-              ElevatedButton(
-                onPressed: () {},
-                child: Text('Copiar QR Code'),
+            SizedBox(
+              height: 10,
+            ),
+            Transform.scale(
+              scaleX: 0.5,
+              child: LinearProgressIndicator(
+                value: controller.value,
               ),
-              ElevatedButton(
-                  onPressed: () {},
-                  child: Text('Como funciona')
-              )
-            ]
-        ),
-              ],
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 50,
+                direction: Axis.horizontal,
+                children: <Widget>[
+                  ElevatedButton(
+                    onPressed: () async {
+                      await Clipboard.setData(ClipboardData(text: codigoPix));
+                    },
+                    child: Text('Copiar QR Code'),
+                  ),
+                  ElevatedButton(onPressed: () {}, child: Text('Como funciona'))
+                ]),
+          ],
         ),
       ),
     );

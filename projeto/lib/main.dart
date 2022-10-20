@@ -20,13 +20,13 @@ class MyApp extends StatelessWidget {
       title: 'CarteirinhaUnicamp',
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.red,
+          backgroundColor: Color(0xFFB71C1C),
           foregroundColor: Colors.black
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             textStyle: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-            backgroundColor: Colors.red,
+            backgroundColor: Color(0xFFB71C1C),
             foregroundColor: Colors.black
           )
         ),

@@ -12,15 +12,6 @@ class _pagamentoQRState extends State<pagamentoQR> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: SizedBox(
-          height: 100,
-          width: 100,
-          child: IconButton(
-            icon: const Icon(Icons.list),
-            onPressed: () {},
-            tooltip: 'Menu lateral',
-          ),
-        ),
         actions: [
           Image.asset('assets/images/logounicamp.png'),
         ],
@@ -47,6 +38,7 @@ class _pagamentoQRState extends State<pagamentoQR> {
           ],
         ),
       ),
-    );;
+    );
+    ;
   }
 }

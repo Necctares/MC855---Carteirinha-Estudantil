@@ -10,12 +10,10 @@ class telaInicial extends StatefulWidget {
 }
 
 class _telaInicialState extends State<telaInicial> {
-
   void _logar() {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (context) {
-
           return mainMenu();
         },
       ),
@@ -25,13 +23,12 @@ class _telaInicialState extends State<telaInicial> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-    actions: [],
-    ),
+      appBar: AppBar(
+        actions: [],
+      ),
       body: SizedBox(
         width: double.infinity,
-        child:
-        Column(
+        child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
@@ -39,20 +36,26 @@ class _telaInicialState extends State<telaInicial> {
               SizedBox(
                 height: 100,
               ),
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'email',
+              Transform.scale(
+                scaleX: 0.9,
+                child: TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'E-mail',
+                  ),
                 ),
               ),
               SizedBox(
                 height: 50,
               ),
-              TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'senha',
+              Transform.scale(
+                scaleX: 0.9,
+                child: TextField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Senha',
+                  ),
                 ),
               ),
               SizedBox(
@@ -60,15 +63,14 @@ class _telaInicialState extends State<telaInicial> {
               ),
               Wrap(
                 alignment: WrapAlignment.spaceBetween,
-                children: <Widget> [
+                children: <Widget>[
                   ElevatedButton(
                     onPressed: _logar,
                     child: Text('Entrar'),
                   ),
                 ],
               ),
-            ]
-        ),
+            ]),
       ),
     );
   }
