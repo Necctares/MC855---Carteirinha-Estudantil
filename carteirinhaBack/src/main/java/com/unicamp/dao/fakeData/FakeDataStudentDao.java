@@ -33,12 +33,12 @@ public class FakeDataStudentDao implements StudentDao {
     }
 
     @Override
-    public Student getStudentById(int id) {
+    public Student getStudentById(Integer id) {
         return this.students.get(id);
     }
 
     @Override
-    public void removeStudentById(int id) {
+    public void removeStudentById(Integer id) {
         this.students.remove(id);
     }
 

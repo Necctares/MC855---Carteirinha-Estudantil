@@ -14,13 +14,13 @@ public class MySqlStudentDao implements StudentDao {
     }
 
     @Override
-    public Student getStudentById(int id) {
+    public Student getStudentById(Integer id) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public void removeStudentById(int id) {
+    public void removeStudentById(Integer id) {
         // TODO Auto-generated method stub
         
     }
