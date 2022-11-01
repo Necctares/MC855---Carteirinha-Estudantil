@@ -20,6 +20,7 @@ dependencies {
     implementation group: 'com.google.zxing', name: 'javase', version: '3.4.1'
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
     implementation 'org.json:json:20220924'
+    implementation "mysql:mysql-connector-java:8.0.31"
 }
 
 test {
