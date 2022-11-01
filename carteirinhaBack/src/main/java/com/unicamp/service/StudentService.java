@@ -11,7 +11,7 @@ import com.unicamp.entity.Student;
 public class StudentService {
 
     @Autowired
-    @Qualifier("fakeData")
+    @Qualifier("carteirinha")
     private StudentDao studentDao;
 
     public Collection<Student> getAllStudents(){

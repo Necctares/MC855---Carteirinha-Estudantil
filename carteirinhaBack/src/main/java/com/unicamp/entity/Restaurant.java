@@ -6,19 +6,27 @@ public class Restaurant {
     Boolean isPostPaid;
     Boolean alreadyAte;
 
-    Boolean alreadyAte() {
+    public Boolean alreadyAte() {
         return alreadyAte;
     }
 
-    Boolean isPostPaid() {
+    public void cleanMeal() {
+        alreadyAte = false;
+    }
+
+    public void setAlreadyAte() {
+        alreadyAte = true;
+    }
+
+    public Boolean isPostPaid() {
         return isPostPaid;
     }
 
-    Double getCredits() {
+    public Double getCredits() {
         return credits;
     }
 
-    Integer getRa() {
+    public Integer getRa() {
         return ra;
     }
 }

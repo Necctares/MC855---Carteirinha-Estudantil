@@ -11,7 +11,7 @@ import com.unicamp.entity.Restaurant;
 public class RestaurantService {
     
     @Autowired
-    @Qualifier("fakeData")
+    @Qualifier("carteirinha")
     private RestaurantDao restaurantDao;
 
     public Restaurant getRestaurantStatsById(Integer ra) {
