@@ -1,14 +1,9 @@
 package com.unicamp.dao;
 
 import com.unicamp.entity.Student;
-import java.util.Collection;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface StudentDao {
-    Collection<Student> getAllStudents();
-
-    Student getStudentById(Integer id);
-
-    void removeStudentById(Integer id);
-
-    void insertStudentToDb(Student student);
+@Repository
+public interface StudentDao extends CrudRepository<Student, Integer> {
 }
