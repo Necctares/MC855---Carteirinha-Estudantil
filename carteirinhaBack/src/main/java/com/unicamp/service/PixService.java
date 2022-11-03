@@ -59,7 +59,7 @@ public class PixService {
             OkHttpClient client = new OkHttpClient().newBuilder()
                     .build();
             MediaType mediaType = MediaType.parse("text/plain");
-            RequestBody body = RequestBody.create(mediaType, "");
+            RequestBody body = RequestBody.create("", mediaType);
             Request request = new Request.Builder()
                     .url("https://api.hm.bb.com.br/pix/v1/cob/" + txid + "?gw-dev-app-key=" + dev_app_key)
                     .addHeader("Authorization", "Bearer " + PixService.generateAuthToken())
