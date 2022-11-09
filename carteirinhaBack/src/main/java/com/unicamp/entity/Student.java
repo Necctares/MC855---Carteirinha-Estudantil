@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name="student")
@@ -20,6 +21,7 @@ public class Student {
     @Column(name="url", nullable = false, length = 300)
     private String imageUrl;
     @Column(name="exp_date", nullable = false)
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm")
     private Date expirationDate;
 
     public Student(){}

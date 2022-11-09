@@ -3,12 +3,12 @@ package com.unicamp.controller;
 import com.unicamp.entity.Student;
 import com.unicamp.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.Objects;
 
-@Controller
+@RestController
 @RequestMapping("/student")
 public class StudentController {
     @Autowired
@@ -18,31 +18,24 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-
-    // TODO: Re-implementar metodos
-    /*
-    @RequestMapping(method = RequestMethod.GET)
-    public Collection<Student> getAllStudents(){
-        return studentService.getAllStudents();
+    @RequestMapping(value = "/byId", method = RequestMethod.GET)
+    public Student getStudentById(@RequestParam int id){
+        return studentService.findById(id);
     }
 
-    @RequestMapping(value = "/byId/{id}", method = RequestMethod.GET)
-    public Student getStudentById(@PathVariable("id") int id){
-        return studentService.getStudentById(id);
+    // TODO: Key check security
+    @RequestMapping(value = "/del", method = RequestMethod.DELETE)
+    public void deleteStudentById(@RequestParam int id, @RequestParam String key){
+        studentService.delete(id);
     }
 
-    @RequestMapping(value = "/del/{id}", method = RequestMethod.DELETE)
-    public void deleteStudentById(@PathVariable("id") int id){
-        studentService.removeStudentById(id);
+    @RequestMapping(value = "/insert", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void insertStudent(@RequestParam String key, @RequestBody Student student){
+        studentService.save(student);
     }
 
-    @RequestMapping(value = "/insert", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void insertStudent(@RequestBody Student student){
-        studentService.insertStudent(student);
-    }*/
-
-    @RequestMapping(value = "/show/{id}", method = RequestMethod.GET)
-    public String student(Model model, @PathVariable("id") int id) {
+    @RequestMapping(value = "/show", method = RequestMethod.GET)
+    public String student(Model model, @RequestParam int id) {
 
         Student actual = studentService.findById(id);
         if(Objects.isNull(actual)) {

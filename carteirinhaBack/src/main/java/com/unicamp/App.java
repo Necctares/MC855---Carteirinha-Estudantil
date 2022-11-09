@@ -19,7 +19,5 @@ public class App implements CommandLineRunner{
 
     @Override
     public void run(String... args) throws Exception {
-        String query = "INSERT INTO student (ra, name, course, url, exp_date) VALUES (?, ?, ?, ?, ?)";
-        //jdbctemplate.update(query, 192513, "Alisson Bispo Freire", "Engenharia Mecanica", "img/192513", new Date(450000));
     }
 }
