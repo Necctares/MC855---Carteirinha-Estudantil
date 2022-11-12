@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name="restaurant")
@@ -16,21 +17,17 @@ public class Restaurant {
     @Column(name="is_post_paid", nullable = false)
     Boolean isPostPaid;
     @Column(name="already_ate", nullable = false)
-    Boolean alreadyAte;
+    Boolean isAlreadyAte;
 
-    public Boolean alreadyAte() {
-        return alreadyAte;
+    Restaurant(){}
+
+    @JsonProperty("isAlreadyAte")
+    public Boolean getIsAlreadyAte() {
+        return isAlreadyAte;
     }
 
-    public void cleanMeal() {
-        alreadyAte = false;
-    }
-
-    public void setAlreadyAte() {
-        alreadyAte = true;
-    }
-
-    public Boolean isPostPaid() {
+    @JsonProperty("isPostPaid")
+    public Boolean getIsPostPaid() {
         return isPostPaid;
     }
 
@@ -40,5 +37,19 @@ public class Restaurant {
 
     public Integer getRa() {
         return ra;
+    }
+
+    @JsonProperty("isAlreadyAte")
+    public void setIsAlreadyAte(Boolean isAlreadyAte) {
+        this.isAlreadyAte = isAlreadyAte;
+    }
+
+    @JsonProperty("isPostPaid")
+    public void setIsPostPaid(Boolean isPostPaid) {
+        this.isPostPaid = isPostPaid;
+    }
+
+    public void addCredits(Double value) {
+        credits += value;
     }
 }
