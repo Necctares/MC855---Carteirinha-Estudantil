@@ -3,7 +3,6 @@ package com.unicamp.dao.mySql;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.unicamp.dao.PixTransferenceDao;
@@ -11,7 +10,6 @@ import com.unicamp.entity.PixTransference;
 import com.unicamp.entity.Student;
 
 @Repository
-@Qualifier("carteirinha")
 public class MySqlPixTransferenceDao implements PixTransferenceDao {
     private static Map<String, PixTransference> pix_transferences;
 

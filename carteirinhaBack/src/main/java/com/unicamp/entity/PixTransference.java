@@ -1,7 +1,6 @@
 package com.unicamp.entity;
 
 import java.sql.Date;
-
 import org.json.JSONObject;
 
 public class PixTransference {
