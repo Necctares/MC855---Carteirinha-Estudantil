@@ -1,14 +1,23 @@
 package com.unicamp.service;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.unicamp.Utils.AuthCheck;
+import com.unicamp.Utils.JsonMessage;
 import com.unicamp.dao.RestaurantDao;
 import com.unicamp.entity.Restaurant;
 
 @Service
+@PropertySource(value = "classpath:applicationValues.properties")
 public class RestaurantService {
 
     private RestaurantDao restaurantDao;
-    private static final Double RESTAURANT_FEE = 3.00;
+    @Value("${restaurant.fee}")
+    private Double RESTAURANT_FEE;
+    private ObjectMapper mapper = new ObjectMapper();
 
     public RestaurantService(RestaurantDao restaurantDao) {
         this.restaurantDao = restaurantDao;
@@ -24,15 +33,15 @@ public class RestaurantService {
         return restaurant;
     }
 
-    public Restaurant save(Restaurant saveRestaurant) {
-        Restaurant restaurant;
+    public ObjectNode save(String key, Restaurant saveRestaurant) {
+        ObjectNode node;
         try {
-            restaurant = restaurantDao.save(saveRestaurant);
+            AuthCheck.authenticate(key);
+            node = JsonMessage.buildMessage("success", "", restaurantDao.save(saveRestaurant), mapper);
         } catch (Exception e) {
-            restaurant = null;
-            System.out.println(e.getMessage());
+            node = JsonMessage.buildMessage("failure", e.getMessage(), mapper);
         }
-        return restaurant;
+        return node;
     }
 
     public boolean deleteRestaurantById(Integer ra) {
@@ -46,16 +55,16 @@ public class RestaurantService {
         return successfull;
     }
 
-    public boolean clearMealStats() {
-        boolean successfull;
+    public ObjectNode clearMealStats(String oAuthKey) {
+        ObjectNode node;
         try {
+            AuthCheck.authenticate(oAuthKey);
             restaurantDao.clearMealStats();
-            successfull = true;
+            node = JsonMessage.buildMessage("success", "", mapper);
         } catch (Exception e) {
-            successfull = false;
-            System.out.println(e.getMessage());
+            node = JsonMessage.buildMessage("failure", e.getMessage(), mapper);
         }
-        return successfull;
+        return node;
     }
 
     public Restaurant eated(Integer ra) {

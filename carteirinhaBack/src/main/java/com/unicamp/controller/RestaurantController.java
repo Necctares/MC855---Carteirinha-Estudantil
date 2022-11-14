@@ -1,8 +1,11 @@
 package com.unicamp.controller;
 
+import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.MediaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.unicamp.entity.Restaurant;
 import com.unicamp.service.RestaurantService;
 
@@ -11,19 +14,21 @@ import com.unicamp.service.RestaurantService;
 public class RestaurantController {
     @Autowired
     private final RestaurantService restaurantService;
+    private ObjectMapper mapper = new ObjectMapper();
 
     public RestaurantController(RestaurantService restaurantService) {
         this.restaurantService = restaurantService;
     }
 
-    @RequestMapping(value = "/updateMeals", method = RequestMethod.PUT)
-    public boolean clearMealStats(@RequestParam String key) {
-        return restaurantService.clearMealStats();
+    @RequestMapping(value = "/updateMeals", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ObjectNode clearMealStats(@RequestBody ObjectNode response) {
+        return restaurantService.clearMealStats(response.get("key").asText());
     }
 
     @RequestMapping(value = "/insert", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void insertRestaurant(@RequestParam String key, @RequestBody Restaurant restaurant) {
-        restaurantService.save(restaurant);
+    public ObjectNode insertRestaurant(@RequestBody ObjectNode response) {
+        return restaurantService.save(response.get("key").asText(),
+                mapper.convertValue(response.get("restaurant"), Restaurant.class));
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -47,7 +52,7 @@ public class RestaurantController {
     }
 
     @RequestMapping(value = "/updateRoll", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Double updateRoll(@RequestParam String key, @RequestParam int id){
+    public Double updateRoll(@RequestParam String key, @RequestParam int id) {
         return restaurantService.updateRoll(Integer.valueOf(id));
     }
 }

@@ -21,12 +21,12 @@ public class Restaurant {
 
     Restaurant(){}
 
-    @JsonProperty("isAlreadyAte")
+    @JsonProperty("already_ate")
     public Boolean getIsAlreadyAte() {
         return isAlreadyAte;
     }
 
-    @JsonProperty("isPostPaid")
+    @JsonProperty("is_post_paid")
     public Boolean getIsPostPaid() {
         return isPostPaid;
     }
@@ -39,12 +39,12 @@ public class Restaurant {
         return ra;
     }
 
-    @JsonProperty("isAlreadyAte")
+    @JsonProperty("already_ate")
     public void setIsAlreadyAte(Boolean isAlreadyAte) {
         this.isAlreadyAte = isAlreadyAte;
     }
 
-    @JsonProperty("isPostPaid")
+    @JsonProperty("is_post_paid")
     public void setIsPostPaid(Boolean isPostPaid) {
         this.isPostPaid = isPostPaid;
     }
