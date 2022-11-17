@@ -13,6 +13,8 @@ public class PixService {
     private static String basic_auth_string = "Basic ZXlKcFpDSTZJbUVpTENKamIyUnBaMjlRZFdKc2FXTmhaRzl5SWpvd0xDSmpiMlJwWjI5VGIyWjBkMkZ5WlNJNk5EWXhNelFzSW5ObGNYVmxibU5wWVd4SmJuTjBZV3hoWTJGdklqb3hmUTpleUpwWkNJNklqTTBObUZtTWpjdFltRTJaaTAwTlRFNExUbGtZeUlzSW1OdlpHbG5iMUIxWW14cFkyRmtiM0lpT2pBc0ltTnZaR2xuYjFOdlpuUjNZWEpsSWpvME5qRXpOQ3dpYzJWeGRXVnVZMmxoYkVsdWMzUmhiR0ZqWVc4aU9qRXNJbk5sY1hWbGJtTnBZV3hEY21Wa1pXNWphV0ZzSWpveExDSmhiV0pwWlc1MFpTSTZJbWh2Ylc5c2IyZGhZMkZ2SWl3aWFXRjBJam94TmpZMU5qZ3pOek16TVRNeGZR";
     private static String dev_app_key = "d27b977908ffab20136ae17d70050f56b971a5bb";
 
+    private ObjectMapper mapper = new ObjectMapper();
+
     private static String generateAuthToken() {
         try {
             OkHttpClient client = new OkHttpClient().newBuilder()
@@ -34,7 +36,8 @@ public class PixService {
         return null;
     }
 
-    public static String generatePix(String cpf, String nome, String valor) {
+    // TODO: RETORNAR ObjectNode
+    public static ObjectNode generatePix(String cpf, String nome, String valor) {
         try {
             OkHttpClient client = new OkHttpClient().newBuilder()
                     .build();
@@ -47,7 +50,9 @@ public class PixService {
                     .addHeader("Authorization", "Bearer " + PixService.generateAuthToken())
                     .build();
             Response response = client.newCall(request).execute();
-            return response.body().string();
+            ObjectNode json = mapper.readTree(response.body().string());
+            // TODO: ADICIONAR TRANSAÇÃO NO DB
+            return json;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -65,6 +70,7 @@ public class PixService {
                     .addHeader("Authorization", "Bearer " + PixService.generateAuthToken())
                     .build();
             Response response = client.newCall(request).execute();
+            // ATUALIZAR TRANSAÇÃO NO DB E CREDITAR ALUNO
             return response.body().string();
         } catch (IOException e) {
             e.printStackTrace();
