@@ -5,15 +5,22 @@ import com.unicamp.entity.Student;
 
 import java.util.Collection;
 
-public interface PixTransferenceDao {
+public interface PixTransferenceDao extends CrudRepository<PixTransference, Integer> {
 
-    Collection<PixTransference> getAllTransferences();
+    @Query("SELECT * from PixTransference where student_ra = :studentRA")
+    List<PixTransference> getPixTransferencesByStudent(@Param("studentRA") Integer studentRA);
 
-    Collection<PixTransference> getPixTransferencesByStudent(Student student);
+    @Query("SELECT * from PixTransference where student_ra = :studentRA and active = 1")
+    List<PixTransference> getActivePixTransferencesByStudent(@Param("studentRA") Integer studentRA);
 
-    PixTransference getPixTransferenceById(String id);
+    @Modifying
+    @Query("UPDATE PixTransference SET completed = 1, active = 0 WHERE bb_id = :bbID")
+    @Transactional
+    void setCompletedPixTransferencesByStudent(@Param("bbID") String bbID);
 
-    void removePixTransferenceById(String id);
+    @Modifying
+    @Query("UPDATE PixTransference SET expired = 1, active = 0 WHERE bb_id = :bbID")
+    @Transactional
+    void setExpiredPixTransferencesByStudent(@Param("bbID") String bbID);
 
-    void insertTransferenceToDb(PixTransference transference);
 }
