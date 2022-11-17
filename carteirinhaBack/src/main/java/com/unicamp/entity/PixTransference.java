@@ -3,94 +3,69 @@ package com.unicamp.entity;
 import java.sql.Date;
 import org.json.JSONObject;
 
+@Entity
+@Table(name="pix_transference")
 public class PixTransference {
-    Student student;
-    JSONObject bb_data;
-    String id;
-    String cpf;
-    Date date;
-    Boolean active;
-    Boolean completed;
-    Boolean expired;
-    Boolean student_credited;
 
-    public PixTransference(Student student, String bb_data_string){
-        this.student = student;
-        this.bb_data = new JSONObject(bb_data_string);
-        this.id = this.bb_data.getString("txid");
-        this.cpf = this.bb_data.getString("cpf");
-        this.date = Date.valueOf(this.bb_data.getString("data"));
-        this.student_credited = false;
-        if (this.bb_data.getString("status") == "ATIVA"){
-            this.active = true;
-            this.completed = false;
-            this.expired = false;
-        } else if (this.bb_data.getString("status") == "CONCLUIDA"){
-            this.active = false;
-            this.completed = true;
-            this.expired = false;
-        } else {
-            this.active = false;
-            this.completed = false;
-            this.expired = true;
-        }
-    }
-    
-    public Student getStudent(){
-        return this.student;
-    }
+    @Id
+    @Column(name="bb_id", nullable = false)
+    String bb_id;
+    @Column(name="ra", nullable = false)
+    Integer ra;
+    @Column(name="date", nullable = false)
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm")
+    Date date;
+    @Column(name="active", nullable = false)
+    Boolean isActive;
+    @Column(name="completed", nullable = false)
+    Boolean isCompleted;
+    @Column(name="expired", nullable = false)
+    Boolean isExpired;
+    @Column(name="value", nullable = false)
+    Double value;
+
+    public PixTransference(){}
     
     public String getId(){
-        return this.id;
-    }
-    
-    public String getCpf(){
-        return this.cpf;
+        return this.bb_id;
     }
     
     public Date getDate(){
         return this.date;
     }
+
+    public Double getValue(){
+        return this.value;
+    }
     
+    @JsonProperty("active")
     public Boolean isActive(){
-        return this.active;
+        return this.isActive;
     }
     
+    @JsonProperty("completed")
     public Boolean isCompleted(){
-        return this.completed;
+        return this.isCompleted;
     }
     
+    @JsonProperty("expired")
     public Boolean isExpired(){
-        return this.expired;
+        return this.isExpired;
     }
 
-    public JSONObject getBBData(){
-        return this.bb_data;
+    @JsonProperty("active")
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
     }
 
-    public Boolean getStudentCredited(){
-        return this.student_credited;
+    @JsonProperty("completed")
+    public void setIsCompleted(Boolean isCompleted) {
+        this.isCompleted = isCompleted;
     }
 
-    public void setStudentCredited(){
-        this.student_credited = true;
-    }
-
-    public void setBBData(String bb_data_string){
-        this.bb_data = new JSONObject(bb_data_string);
-        if (this.bb_data.getString("status") == "ATIVA"){
-            this.active = true;
-            this.completed = false;
-            this.expired = false;
-        } else if (this.bb_data.getString("status") == "CONCLUIDA"){
-            this.active = false;
-            this.completed = true;
-            this.expired = false;
-        } else {
-            this.active = false;
-            this.completed = false;
-            this.expired = true;
-        }
+    @JsonProperty("expired")
+    public void setIsExpired(Boolean isExpired) {
+        this.isExpired = isExpired;
     }
     
 }
