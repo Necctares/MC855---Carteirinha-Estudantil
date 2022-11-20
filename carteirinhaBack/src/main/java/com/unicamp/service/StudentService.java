@@ -1,6 +1,9 @@
 package com.unicamp.service;
 
 import org.springframework.stereotype.Service;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.unicamp.Utils.JsonMessage;
 import com.unicamp.dao.StudentDao;
 import com.unicamp.entity.Student;
 
@@ -8,39 +11,40 @@ import com.unicamp.entity.Student;
 public class StudentService {
 
     private StudentDao studentDao;
+    private ObjectMapper mapper = new ObjectMapper();
 
     public StudentService(StudentDao studentDao) {
         this.studentDao = studentDao;
     }
 
-    public Student findById(int ra) {
-        Student student;
+    public ObjectNode findById(int ra) {
+        ObjectNode node;
         try {
-            student = studentDao.findById(Integer.valueOf(ra)).get();
+            node = JsonMessage.buildMessage("success", "", studentDao.findById(Integer.valueOf(ra)).get(), mapper);
         } catch (Exception e) {
-            student = null;
+            node = JsonMessage.buildMessage("success", e.getMessage(), mapper);
         }
-        return student;
+        return node;
     }
 
-    public Student save(Student student) {
-        Student aux = student;
+    public ObjectNode save(Student student) {
+        ObjectNode node;
         try {
-            studentDao.save(student);
+            node = JsonMessage.buildMessage("success", "", studentDao.save(student), mapper);
         } catch (Exception e) {
-            aux = null;
-            System.out.println(e.getMessage());
+            node = JsonMessage.buildMessage("success", e.getMessage(), mapper);
         }
-        return aux;
+        return node;
     }
 
-    public boolean delete(int ra) {
-        boolean isOk = true;
+    public ObjectNode delete(int ra) {
+        ObjectNode node;
         try {
             studentDao.deleteById(Integer.valueOf(ra));
+            node = JsonMessage.buildMessage("success", "", mapper);
         } catch (Exception e) {
-            isOk = false;
+            node = JsonMessage.buildMessage("success", e.getMessage(), mapper);
         }
-        return isOk;
+        return node;
     }
 }

@@ -1,5 +1,7 @@
 package com.unicamp.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.unicamp.entity.Student;
 import com.unicamp.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,25 +16,26 @@ import java.util.Objects;
 public class StudentController {
     @Autowired
     private final StudentService studentService;
+    private ObjectMapper mapper = new ObjectMapper();
 
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
 
-    @RequestMapping(value = "/byId", method = RequestMethod.GET)
-    public Student getStudentById(@RequestParam int id) {
-        return studentService.findById(id);
+    @RequestMapping(value = "/byId", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ObjectNode getStudentById(@RequestBody ObjectNode response) {
+        return studentService.findById(response.get("ra").asInt());
     }
 
     // TODO: Key check security
-    @RequestMapping(value = "/del", method = RequestMethod.DELETE)
-    public void deleteStudentById(@RequestParam int id, @RequestParam String key) {
-        studentService.delete(id);
+    @RequestMapping(value = "/del", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ObjectNode deleteStudentById(@RequestBody ObjectNode response) {
+        return studentService.delete(response.get("ra").asInt());
     }
 
-    @RequestMapping(value = "/insert", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void insertStudent(@RequestParam String key, @RequestBody Student student) {
-        studentService.save(student);
+    @RequestMapping(value = "/insert", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ObjectNode insertStudent(@RequestBody ObjectNode response) {
+        return studentService.save(mapper.convertValue(response.get("student"), Student.class));
     }
 
     @Controller
@@ -40,13 +43,13 @@ public class StudentController {
     public class StudentView {
         @RequestMapping(value = "/show", method = RequestMethod.GET)
         public String student(Model model, @RequestParam int id) {
-            Student actual = studentService.findById(id);
+            ObjectNode actual = studentService.findById(id);
             if (Objects.isNull(actual)) {
                 model.addAttribute("student", "Não foi encontrado nenhum estudante com este RA");
                 model.addAttribute("course", "Curso invalido");
             } else {
-                model.addAttribute("student", actual.getName());
-                model.addAttribute("course", actual.getCourse());
+                model.addAttribute("student", actual.get("student").get("name"));
+                model.addAttribute("course", actual.get("student").get("course"));
             }
             return "student";
         }

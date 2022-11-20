@@ -17,13 +17,21 @@ public class RestaurantService {
     private RestaurantDao restaurantDao;
     @Value("${restaurant.fee}")
     private Double RESTAURANT_FEE;
+    @Value("${alreadyAte.error}")
+    private String ALREADY_ATE_ERROR;
+    @Value("${insufficienteCredits.error}")
+    private String INSUFFICIENT_CREDITS_ERROR;
+    @Value("${invalidCreditsValue.error}")
+    private String INVALID_CREDITS_VALUE;
+    @Value("${notPostPaid.error}")
+    private String NOT_POSTPAID;
     private ObjectMapper mapper = new ObjectMapper();
 
     public RestaurantService(RestaurantDao restaurantDao) {
         this.restaurantDao = restaurantDao;
     }
 
-    public Restaurant getRestaurantById(Integer ra) {
+    private Restaurant getRestaurantById(Integer ra) {
         Restaurant restaurant;
         try {
             restaurant = restaurantDao.findById(ra).get();
@@ -31,6 +39,16 @@ public class RestaurantService {
             restaurant = null;
         }
         return restaurant;
+    }
+
+    public ObjectNode getRestaurantByRA(Integer ra) {
+        ObjectNode node;
+        try {
+            node = JsonMessage.buildMessage("success", "", restaurantDao.findById(ra).get(), mapper);
+        } catch (Exception e) {
+            node = JsonMessage.buildMessage("failure", e.getMessage(), mapper);
+        }
+        return node;
     }
 
     public ObjectNode save(String key, Restaurant saveRestaurant) {
@@ -50,7 +68,7 @@ public class RestaurantService {
             restaurantDao.deleteById(ra);
             node = JsonMessage.buildMessage("success", "", mapper);
         } catch (Exception e) {
-            node = JsonMessage.buildMessage("failure", "", mapper);
+            node = JsonMessage.buildMessage("failure", e.getMessage(), mapper);
         }
         return node;
     }
@@ -79,12 +97,16 @@ public class RestaurantService {
                 restaurant = currentRestaurant;
                 restaurant.setIsAlreadyAte(true);
                 restaurant.addCredits(-RESTAURANT_FEE);
-                node = JsonMessage.buildMessage("success", "", restaurant ,mapper);
+                node = JsonMessage.buildMessage("success", "", restaurant, mapper);
             } else {
-                node = JsonMessage.buildMessage("failure", "", mapper);
+                if (currentRestaurant.getIsAlreadyAte()) {
+                    node = JsonMessage.buildMessage("failure", ALREADY_ATE_ERROR, mapper);
+                } else {
+                    node = JsonMessage.buildMessage("failure", INSUFFICIENT_CREDITS_ERROR, mapper);
+                }
             }
         } catch (Exception e) {
-            node = JsonMessage.buildMessage("failure", "", mapper);
+            node = JsonMessage.buildMessage("failure", e.getMessage(), mapper);
         }
         return node;
     }
@@ -96,12 +118,12 @@ public class RestaurantService {
             if (value > 0) {
                 restaurantDao.recharged(ra, currentRestaurant.getCredits() + value);
                 currentRestaurant.addCredits(value);
-                node = JsonMessage.buildMessage("success", "", currentRestaurant ,mapper);
+                node = JsonMessage.buildMessage("success", "", currentRestaurant, mapper);
             } else {
-                node = JsonMessage.buildMessage("failure", "", mapper);
+                node = JsonMessage.buildMessage("failure", INVALID_CREDITS_VALUE, mapper);
             }
         } catch (Exception e) {
-            node = JsonMessage.buildMessage("failure", "", mapper);
+            node = JsonMessage.buildMessage("failure", e.getMessage(), mapper);
         }
         return node;
     }
@@ -114,13 +136,12 @@ public class RestaurantService {
             if (currentRestaurant.getIsPostPaid()) {
                 debt = currentRestaurant.getCredits();
                 restaurantDao.updateRoll(ra);
-                node = JsonMessage.buildMessage("success", "", Double.valueOf(debt) ,mapper);
+                node = JsonMessage.buildMessage("success", "", Double.valueOf(debt), mapper);
             } else {
-                node = JsonMessage.buildMessage("failure", "", mapper);
+                node = JsonMessage.buildMessage("failure", NOT_POSTPAID, mapper);
             }
         } catch (Exception e) {
-            debt = null;
-            node = JsonMessage.buildMessage("failure", "", mapper);
+            node = JsonMessage.buildMessage("failure", e.getMessage(), mapper);
         }
         return node;
     }
