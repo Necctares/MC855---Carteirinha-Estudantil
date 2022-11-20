@@ -44,15 +44,15 @@ public class RestaurantService {
         return node;
     }
 
-    public boolean deleteRestaurantById(Integer ra) {
-        boolean successfull;
+    public ObjectNode deleteRestaurantById(Integer ra) {
+        ObjectNode node;
         try {
             restaurantDao.deleteById(ra);
-            successfull = true;
+            node = JsonMessage.buildMessage("success", "", mapper);
         } catch (Exception e) {
-            successfull = false;
+            node = JsonMessage.buildMessage("failure", "", mapper);
         }
-        return successfull;
+        return node;
     }
 
     public ObjectNode clearMealStats(String oAuthKey) {
@@ -67,8 +67,9 @@ public class RestaurantService {
         return node;
     }
 
-    public Restaurant eated(Integer ra) {
+    public ObjectNode eated(Integer ra) {
         Restaurant restaurant;
+        ObjectNode node;
         try {
             Restaurant currentRestaurant = getRestaurantById(ra);
             Double currentCredits = currentRestaurant.getCredits() - RESTAURANT_FEE;
@@ -78,45 +79,49 @@ public class RestaurantService {
                 restaurant = currentRestaurant;
                 restaurant.setIsAlreadyAte(true);
                 restaurant.addCredits(-RESTAURANT_FEE);
+                node = JsonMessage.buildMessage("success", "", restaurant ,mapper);
             } else {
-                restaurant = null;
+                node = JsonMessage.buildMessage("failure", "", mapper);
             }
         } catch (Exception e) {
-            restaurant = null;
+            node = JsonMessage.buildMessage("failure", "", mapper);
         }
-        return restaurant;
+        return node;
     }
 
-    public Restaurant recharged(Integer ra, Double value) {
-        Restaurant restaurant;
+    public ObjectNode recharged(Integer ra, Double value) {
+        ObjectNode node;
         try {
             Restaurant currentRestaurant = getRestaurantById(ra);
             if (value > 0) {
                 restaurantDao.recharged(ra, currentRestaurant.getCredits() + value);
-                restaurant = currentRestaurant;
-                restaurant.addCredits(value);
+                currentRestaurant.addCredits(value);
+                node = JsonMessage.buildMessage("success", "", currentRestaurant ,mapper);
             } else {
-                restaurant = null;
+                node = JsonMessage.buildMessage("failure", "", mapper);
             }
         } catch (Exception e) {
-            restaurant = null;
+            node = JsonMessage.buildMessage("failure", "", mapper);
         }
-        return restaurant;
+        return node;
     }
 
-    public Double updateRoll(Integer ra) {
+    public ObjectNode updateRoll(Integer ra) {
         Double debt;
+        ObjectNode node;
         try {
             Restaurant currentRestaurant = getRestaurantById(ra);
             if (currentRestaurant.getIsPostPaid()) {
                 debt = currentRestaurant.getCredits();
                 restaurantDao.updateRoll(ra);
+                node = JsonMessage.buildMessage("success", "", Double.valueOf(debt) ,mapper);
             } else {
-                debt = null;
+                node = JsonMessage.buildMessage("failure", "", mapper);
             }
         } catch (Exception e) {
             debt = null;
+            node = JsonMessage.buildMessage("failure", "", mapper);
         }
-        return debt;
+        return node;
     }
 }

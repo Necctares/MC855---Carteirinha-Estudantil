@@ -1,7 +1,13 @@
 package com.unicamp.entity;
 
 import java.sql.Date;
-import org.json.JSONObject;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name="pix_transference")

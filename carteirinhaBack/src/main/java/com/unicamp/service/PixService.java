@@ -2,6 +2,8 @@ package com.unicamp.service;
 
 import java.io.IOException;
 import org.json.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -12,8 +14,7 @@ public class PixService {
 
     private static String basic_auth_string = "Basic ZXlKcFpDSTZJbUVpTENKamIyUnBaMjlRZFdKc2FXTmhaRzl5SWpvd0xDSmpiMlJwWjI5VGIyWjBkMkZ5WlNJNk5EWXhNelFzSW5ObGNYVmxibU5wWVd4SmJuTjBZV3hoWTJGdklqb3hmUTpleUpwWkNJNklqTTBObUZtTWpjdFltRTJaaTAwTlRFNExUbGtZeUlzSW1OdlpHbG5iMUIxWW14cFkyRmtiM0lpT2pBc0ltTnZaR2xuYjFOdlpuUjNZWEpsSWpvME5qRXpOQ3dpYzJWeGRXVnVZMmxoYkVsdWMzUmhiR0ZqWVc4aU9qRXNJbk5sY1hWbGJtTnBZV3hEY21Wa1pXNWphV0ZzSWpveExDSmhiV0pwWlc1MFpTSTZJbWh2Ylc5c2IyZGhZMkZ2SWl3aWFXRjBJam94TmpZMU5qZ3pOek16TVRNeGZR";
     private static String dev_app_key = "d27b977908ffab20136ae17d70050f56b971a5bb";
-
-    private ObjectMapper mapper = new ObjectMapper();
+    private static ObjectMapper mapper = new ObjectMapper();
 
     private static String generateAuthToken() {
         try {
@@ -50,7 +51,7 @@ public class PixService {
                     .addHeader("Authorization", "Bearer " + PixService.generateAuthToken())
                     .build();
             Response response = client.newCall(request).execute();
-            ObjectNode json = mapper.readTree(response.body().string());
+            ObjectNode json = mapper.readValue(response.body().string(), ObjectNode.class);
             // TODO: ADICIONAR TRANSAÇÃO NO DB
             return json;
         } catch (IOException e) {

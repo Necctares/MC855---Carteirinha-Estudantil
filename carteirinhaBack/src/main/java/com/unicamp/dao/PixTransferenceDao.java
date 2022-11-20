@@ -1,16 +1,19 @@
 package com.unicamp.dao;
 
 import com.unicamp.entity.PixTransference;
-import com.unicamp.entity.Student;
-
-import java.util.Collection;
+import java.util.List;
+import javax.transaction.Transactional;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 public interface PixTransferenceDao extends CrudRepository<PixTransference, Integer> {
 
-    @Query("SELECT * from PixTransference where student_ra = :studentRA")
+    @Query(value="SELECT u from PixTransference u where u.ra = :studentRA", nativeQuery = true)
     List<PixTransference> getPixTransferencesByStudent(@Param("studentRA") Integer studentRA);
 
-    @Query("SELECT * from PixTransference where student_ra = :studentRA and active = 1")
+    @Query("SELECT u from PixTransference u where u.ra = :studentRA and active = 1")
     List<PixTransference> getActivePixTransferencesByStudent(@Param("studentRA") Integer studentRA);
 
     @Modifying

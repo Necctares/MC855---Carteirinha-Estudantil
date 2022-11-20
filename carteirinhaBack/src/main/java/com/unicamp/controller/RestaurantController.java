@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.MediaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.unicamp.Utils.JsonMessage;
 import com.unicamp.entity.Restaurant;
 import com.unicamp.service.RestaurantService;
 
@@ -32,27 +33,32 @@ public class RestaurantController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Restaurant getRestaurantById(@RequestParam int id) {
-        return restaurantService.getRestaurantById(Integer.valueOf(id));
+    public ObjectNode getRestaurantById(@RequestParam int id) {
+        Restaurant restaurant = restaurantService.getRestaurantById(Integer.valueOf(id));
+        if(Objects.isNull(restaurant)){
+            return JsonMessage.buildMessage("failure", "", mapper);
+        }else{
+            return JsonMessage.buildMessage("success", "", mapper);
+        }
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
-    public boolean deleteRestaurantById(@RequestParam int id) {
+    public ObjectNode deleteRestaurantById(@RequestParam int id) {
         return restaurantService.deleteRestaurantById(Integer.valueOf(id));
     }
 
     @RequestMapping(value = "/eated", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Restaurant eated(@RequestParam int id) {
+    public ObjectNode eated(@RequestParam int id) {
         return restaurantService.eated(Integer.valueOf(id));
     }
 
     @RequestMapping(value = "/recharge", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Restaurant recharge(@RequestParam int id, @RequestParam double value) {
+    public ObjectNode recharge(@RequestParam int id, @RequestParam double value) {
         return restaurantService.recharged(Integer.valueOf(id), value);
     }
 
     @RequestMapping(value = "/updateRoll", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Double updateRoll(@RequestParam String key, @RequestParam int id) {
+    public ObjectNode updateRoll(@RequestParam String key, @RequestParam int id) {
         return restaurantService.updateRoll(Integer.valueOf(id));
     }
 }
