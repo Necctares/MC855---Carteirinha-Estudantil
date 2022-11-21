@@ -2,26 +2,33 @@ package com.unicamp.controller;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.unicamp.service.PixService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import java.io.IOException;
-import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/pix")
 public class PixController {
+    @Autowired
+    private final PixService pixService;
 
-    // Show QR Code on browser
-    @PostMapping(value = "/generate-pix")
-    public ObjectNode generatePix(HttpServletResponse response, @RequestParam String cpf, @RequestParam String nome,
-            @RequestParam String valor) {
-        return PixService.generatePix(cpf, nome, valor);
+    public PixController(PixService pixService) {
+        this.pixService = pixService;
     }
 
-    // Show QR Code on browser
-    @GetMapping(value = "/consult-pix")
-    public void consultPix(HttpServletResponse response, @RequestParam String txid) throws IOException {
-        String json = PixService.consultPix(txid);
-        response.getWriter().write(json);
+
+    @RequestMapping(value = "/generate-pix", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ObjectNode generatePix(@RequestBody ObjectNode response) {
+        return pixService.generatePix(response.get("ra").asInt(), response.get("cpf").asText(), response.get("nome").asText(), response.get("valor").asText());
+    }
+
+    @RequestMapping(value = "/consult-pix", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ObjectNode consultPix(@RequestBody ObjectNode response) {
+        return pixService.consultAndCreditPix(response.get("txid").asText());
     }
 
 }
