@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-public interface PixTransferenceDao extends CrudRepository<PixTransference, Integer> {
+public interface PixTransferenceDao extends CrudRepository<PixTransference, String> {
 
     @Query(value="SELECT u from PixTransference u where u.ra = :studentRA", nativeQuery = true)
     List<PixTransference> getPixTransferencesByStudent(@Param("studentRA") Integer studentRA);

@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -31,9 +32,22 @@ public class PixTransference {
     Double value;
 
     public PixTransference(){}
+
+    public PixTransference(String bb_id, Integer ra, Date date){
+        this.bb_id = bb_id;
+        this.ra = ra;
+        this.date = date;
+        this.isActive = true;
+        this.isCompleted = false;
+        this.isExpired = false;
+    }
     
     public String getId(){
         return this.bb_id;
+    }
+    
+    public Integer getRa(){
+        return this.ra;
     }
     
     public Date getDate(){
