@@ -117,10 +117,8 @@ public class PixService {
             if (json.get("status").asText() == "CONCLUIDA"){
                 PixTransference transference = pixTransferenceDao.findById(json.get("txid").asText()).get();
                 if (transference.isActive()){
-                    Restaurant restaurant = restaurantDao.findById(transference.getRa()).get();
-                    restaurant.addCredits(json.get("valor").get("original").asDouble());
-                    transference.setIsActive(false);
-                    transference.setIsCompleted(true);
+                    pixTransferenceDao.creditStudent(transference.getRa(), json.get("valor").get("original").asDouble());
+                    pixTransferenceDao.setCompletedPixTransferencesById(json.get("txid").asText());
                 }
             }
 

@@ -19,11 +19,16 @@ public interface PixTransferenceDao extends CrudRepository<PixTransference, Stri
     @Modifying
     @Query("UPDATE PixTransference SET completed = 1, active = 0 WHERE bb_id = :bbID")
     @Transactional
-    void setCompletedPixTransferencesByStudent(@Param("bbID") String bbID);
+    void setCompletedPixTransferencesById(@Param("bbID") String bbID);
 
     @Modifying
     @Query("UPDATE PixTransference SET expired = 1, active = 0 WHERE bb_id = :bbID")
     @Transactional
-    void setExpiredPixTransferencesByStudent(@Param("bbID") String bbID);
+    void setExpiredPixTransferencesById(@Param("bbID") String bbID);
+
+    @Modifying
+    @Query("UPDATE Restaurant SET credits = credits + :value WHERE ra = :ra")
+    @Transactional
+    void creditStudent(@Param("ra") Integer ra, @Param("value") Double value);
 
 }
