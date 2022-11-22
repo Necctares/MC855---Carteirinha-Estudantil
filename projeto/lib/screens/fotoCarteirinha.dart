@@ -10,13 +10,7 @@ class fotoCarteirinha extends StatefulWidget {
 
 class _fotoCarteirinhaState extends State<fotoCarteirinha> {
   void _voltarMenu() {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (context) {
-          return mainMenu();
-        },
-      ),
-    );
+    Navigator.of(context).popUntil((route) => route.isFirst);
   }
 
   @override

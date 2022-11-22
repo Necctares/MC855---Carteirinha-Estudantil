@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/screens/menuLateral.dart';
 
 class fAQ extends StatelessWidget {
   const fAQ({Key? key}) : super(key: key);
@@ -6,6 +7,7 @@ class fAQ extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: menuLateral(),
       appBar: AppBar(
         actions: [
           Image.asset('assets/images/logounicamp.png'),
@@ -19,7 +21,7 @@ class fAQ extends StatelessWidget {
           Container(
             alignment: Alignment.center,
             child: Text(
-              'Frequent Asked Questions',
+              'Perguntas Frequentes',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 40,

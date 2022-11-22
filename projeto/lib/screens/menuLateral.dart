@@ -31,7 +31,7 @@ class menuLateral extends StatelessWidget {
               title: Text('Menu Principal'),
               hoverColor: Colors.blue,
               onTap: () {
-                Navigator.pop(context);
+                Navigator.of(context).popUntil((route) => route.isFirst);
               },
             ),
             ListTile(
@@ -53,7 +53,7 @@ class menuLateral extends StatelessWidget {
               onTap: () {},
             ),
             ListTile(
-              title: Text('F.A.Q'),
+              title: Text('Perguntas Frequentes'),
               hoverColor: Colors.blue,
               onTap: () {
                 Navigator.of(context).push(

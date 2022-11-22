@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:untitled/screens/mainMenu.dart';
 import 'package:untitled/screens/menuLateral.dart';
 import 'fotoCarteirinha.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class carteirinha extends StatefulWidget {
   const carteirinha({super.key});
@@ -11,14 +12,10 @@ class carteirinha extends StatefulWidget {
 }
 
 class _carteirinhaState extends State<carteirinha> {
+  var userIdLink = "https://www.youtube.com/watch?v=BvalYFjApoY";
+
   void _voltarMenu() {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (context) {
-          return mainMenu();
-        },
-      ),
-    );
+    Navigator.of(context).popUntil((route) => route.isFirst);
   }
 
   void _visualizarCarteirinha() {
@@ -30,7 +27,6 @@ class _carteirinhaState extends State<carteirinha> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: menuLateral(),
       appBar: AppBar(
         actions: [
           Image.asset('assets/images/logounicamp.png'),
@@ -54,7 +50,11 @@ class _carteirinhaState extends State<carteirinha> {
             SizedBox(
               height: 75,
             ),
-            Image.asset('assets/images/qrcode.png'),
+            QrImage(
+              data: userIdLink,
+              version: QrVersions.auto,
+              size: 300.0,
+            ),
             SizedBox(
               height: 75,
             ),

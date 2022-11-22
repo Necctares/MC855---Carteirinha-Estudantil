@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'menuLateral.dart';
 
 class Notificacoes extends StatelessWidget {
   const Notificacoes({Key? key}) : super(key: key);
@@ -6,6 +7,7 @@ class Notificacoes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: menuLateral(),
       appBar: AppBar(
         actions: [
           Image.asset('assets/images/logounicamp.png'),

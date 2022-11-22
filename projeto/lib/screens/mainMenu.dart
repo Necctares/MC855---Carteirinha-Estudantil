@@ -5,51 +5,47 @@ import 'recarregarValor.dart';
 import 'pagamentoQR.dart';
 import 'usuarioInfo.dart';
 
-class mainMenu extends StatefulWidget {
+class mainMenu extends StatelessWidget {
   const mainMenu({
     super.key,
-    /*required this.inform*/
+    required this.inform,
   });
 
-  //final usuarioInfo inform;
-
-  @override
-  State<mainMenu> createState() => _mainMenuState();
-}
-
-class _mainMenuState extends State<mainMenu> {
-  void _autentificar() {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (context) {
-          return carteirinha();
-        },
-      ),
-    );
-  }
-
-  void _recarregar() {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (context) {
-          return recarregarValor();
-        },
-      ),
-    );
-  }
-
-  void _pagar() {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (context) {
-          return pagamentoQR();
-        },
-      ),
-    );
-  }
+  final usuarioInfo inform;
 
   @override
   Widget build(BuildContext context) {
+
+    void _autentificar() {
+      Navigator.of(context).push(
+        MaterialPageRoute<void>(
+          builder: (context) {
+            return carteirinha();
+          },
+        ),
+      );
+    }
+
+    void _recarregar() {
+      Navigator.of(context).push(
+        MaterialPageRoute<void>(
+          builder: (context) {
+            return recarregarValor();
+          },
+        ),
+      );
+    }
+
+    void _pagar() {
+      Navigator.of(context).push(
+        MaterialPageRoute<void>(
+          builder: (context) {
+            return pagamentoQR();
+          },
+        ),
+      );
+    }
+
     return Scaffold(
       drawer: menuLateral(),
       appBar: AppBar(
@@ -75,9 +71,9 @@ class _mainMenuState extends State<mainMenu> {
                 direction: Axis.vertical,
                 spacing: 10,
                 children: <Widget>[
-                  Text('Nome: ' + 'Renan Hiroki'),
-                  Text('Matrícula: 123456'),
-                  Text('Crédito: R\$ 8,00')
+                  Text('Nome: ' + inform.nome),
+                  Text('Matrícula: ' + inform.matricula.toString()),
+                  Text('Crédito: R\$ ' + inform.saldo.toString())
                 ],
               ),
               SizedBox(

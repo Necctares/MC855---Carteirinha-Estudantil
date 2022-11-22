@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
-class pagamentoQR extends StatefulWidget {
-  const pagamentoQR({Key? key}) : super(key: key);
+class pagamentoQR extends StatelessWidget {
+  pagamentoQR({super.key});
 
-  @override
-  State<pagamentoQR> createState() => _pagamentoQRState();
-}
+  var userCode = "https://www.youtube.com/watch?v=BvalYFjApoY";
 
-class _pagamentoQRState extends State<pagamentoQR> {
   @override
   Widget build(BuildContext context) {
+    void _voltarMenu() {
+      Navigator.of(context).popUntil((route) => route.isFirst);
+    }
+
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -34,7 +36,16 @@ class _pagamentoQRState extends State<pagamentoQR> {
             SizedBox(
               height: 75,
             ),
-            Image.asset('assets/images/qrcode.png'),
+            QrImage(
+              data: userCode,
+              version: QrVersions.auto,
+              size: 300.0,
+            ),
+            SizedBox(
+              height: 80,
+            ),
+            ElevatedButton(
+                onPressed: _voltarMenu, child: Text('Retornar à tela inicial')),
           ],
         ),
       ),

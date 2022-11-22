@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'mainMenu.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'usuarioInfo.dart';
+import 'mainMenu.dart';
 
 class telaInicial extends StatefulWidget {
   const telaInicial({Key? key}) : super(key: key);
@@ -10,14 +11,59 @@ class telaInicial extends StatefulWidget {
 }
 
 class _telaInicialState extends State<telaInicial> {
+
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  bool rememberEmail = false;
+  String email = '';
+  String? password;
+  final user = usuarioInfo(nome: "Pedro", matricula: 23456, saldo: 7.13);
+
+  @override
+  void initState() {
+    super.initState();
+    _getEmail();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   void _logar() {
-    Navigator.of(context).push(
+    _saveEmail();
+    Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute<void>(
         builder: (context) {
-          return mainMenu();
+          return mainMenu(inform: user,);
         },
       ),
+      (route) => false,
     );
+  }
+
+  Future _getEmail() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      rememberEmail = prefs.getBool('rememberEmail') ?? false;
+      email = prefs.getString('email') ?? '';
+      if (rememberEmail == true) {
+        emailController.text = email;
+      }
+    });
+  }
+
+  Future _saveEmail() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('rememberEmail', rememberEmail);
+    if (rememberEmail) {
+      prefs.setString('email', emailController.text);
+    }
+    else {
+      prefs.remove('email');
+    }
   }
 
   @override
@@ -43,6 +89,7 @@ class _telaInicialState extends State<telaInicial> {
                     border: OutlineInputBorder(),
                     hintText: 'E-mail',
                   ),
+                  controller: emailController,
                 ),
               ),
               SizedBox(
@@ -56,7 +103,27 @@ class _telaInicialState extends State<telaInicial> {
                     border: OutlineInputBorder(),
                     hintText: 'Senha',
                   ),
+                  controller: passwordController,
                 ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 45,
+                  ),
+                  Checkbox(
+                    value: rememberEmail,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        rememberEmail = value!;
+                      });
+                    },
+                  ),
+                  Text('Lembrar Email')
+                ],
               ),
               SizedBox(
                 height: 50,

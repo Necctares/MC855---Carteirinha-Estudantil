@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -78,12 +78,16 @@ class _recarregarQRState extends State<recarregarQR>
             SizedBox(
               height: 25,
             ),
-            Image.asset('assets/images/qrcode.png'),
+            QrImage(
+              data: codigoPix,
+              version: QrVersions.auto,
+              size: 300.0,
+            ),
             SizedBox(
               height: 25,
             ),
-            Transform.scale(
-              scaleX: 0.9,
+            SizedBox(
+              width: 900,
               child: TextField(
                 readOnly: true,
                 decoration: InputDecoration(
