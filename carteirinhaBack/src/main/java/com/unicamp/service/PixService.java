@@ -17,7 +17,6 @@ import com.unicamp.Utils.JsonMessage;
 import com.unicamp.dao.PixTransferenceDao;
 import com.unicamp.dao.RestaurantDao;
 import com.unicamp.entity.PixTransference;
-import com.unicamp.entity.Restaurant;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -81,9 +80,9 @@ public class PixService {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
             java.util.Date date = sdf.parse(strDate);
             java.sql.Date sqlDate = new Date(date.getTime());
-            
+
             // Create new pixTransference and save it to db
-            PixTransference newPixTranference = new PixTransference(json.get("txid").asText(), ra, sqlDate);
+            PixTransference newPixTranference = new PixTransference(json.get("txid").asText(), ra, sqlDate, json.get("valor").get("original").asDouble());
             pixTransferenceDao.save(newPixTranference);
 
             ObjectNode node;
@@ -105,8 +104,6 @@ public class PixService {
         try {
             OkHttpClient client = new OkHttpClient().newBuilder()
                     .build();
-            // MediaType mediaType = MediaType.parse("text/plain");
-            // RequestBody body = RequestBody.create("", mediaType);
             Request request = new Request.Builder()
                     .url("https://api.hm.bb.com.br/pix/v1/cob/" + txid + "?gw-dev-app-key=" + dev_app_key)
                     .addHeader("Authorization", "Bearer " + PixService.generateAuthToken())
@@ -114,11 +111,11 @@ public class PixService {
             Response response = client.newCall(request).execute();
             ObjectNode json = mapper.readValue(response.body().string(), ObjectNode.class);
             
-            if (json.get("status").asText() == "CONCLUIDA"){
-                PixTransference transference = pixTransferenceDao.findById(json.get("txid").asText()).get();
+            if (json.get("status").asText() == "CONCLUIDA"){             
+                PixTransference transference = pixTransferenceDao.findById(txid).get();
                 if (transference.isActive()){
-                    pixTransferenceDao.creditStudent(transference.getRa(), json.get("valor").get("original").asDouble());
-                    pixTransferenceDao.setCompletedPixTransferencesById(json.get("txid").asText());
+                    pixTransferenceDao.creditStudent(transference.getRa(), transference.getValue());
+                    pixTransferenceDao.setCompletedPixTransferencesById(transference.getId());
                 }
             }
 

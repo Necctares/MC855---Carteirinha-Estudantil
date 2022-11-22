@@ -33,10 +33,11 @@ public class PixTransference {
 
     public PixTransference(){}
 
-    public PixTransference(String bb_id, Integer ra, Date date){
+    public PixTransference(String bb_id, Integer ra, Date date, Double value){
         this.bb_id = bb_id;
         this.ra = ra;
         this.date = date;
+        this.value = value;
         this.isActive = true;
         this.isCompleted = false;
         this.isExpired = false;
