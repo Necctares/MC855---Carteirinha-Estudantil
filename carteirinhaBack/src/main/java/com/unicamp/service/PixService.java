@@ -77,9 +77,17 @@ public class PixService {
 
             // Get and format date from BB response
             String strDate = json.get("calendario").get("criacao").asText();
+            strDate = strDate.substring(0, strDate.length() - 8);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
-            java.util.Date date = sdf.parse(strDate);
-            java.sql.Date sqlDate = new Date(date.getTime());
+            java.util.Date date;
+            java.sql.Date sqlDate;
+            try {
+                date = sdf.parse(strDate);
+                sqlDate = new Date(date.getTime());
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return JsonMessage.buildMessage("failure", e.getMessage(), mapper);
+            }
 
             // Create new pixTransference and save it to db
             PixTransference newPixTranference = new PixTransference(json.get("txid").asText(), ra, sqlDate, json.get("valor").get("original").asDouble());
@@ -93,8 +101,6 @@ public class PixService {
             }
             return node;
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e){
             e.printStackTrace();
         }
         return null;
