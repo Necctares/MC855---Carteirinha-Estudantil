@@ -110,21 +110,34 @@ public class PixService {
                     .build();
             Response response = client.newCall(request).execute();
             ObjectNode json = mapper.readValue(response.body().string(), ObjectNode.class);
-            
+            ObjectNode node;
+
             if (json.get("status").asText() == "CONCLUIDA"){             
                 PixTransference transference = pixTransferenceDao.findById(txid).get();
                 if (transference.isActive()){
                     pixTransferenceDao.creditStudent(transference.getRa(), transference.getValue());
                     pixTransferenceDao.setCompletedPixTransferencesById(transference.getId());
+                    try {  
+                        node = JsonMessage.buildMessage("success", "Student successfully credited.", json, mapper);
+                    } catch (Exception e) {
+                        node = JsonMessage.buildMessage("failure", e.getMessage(), mapper);
+                    }
+                } else {
+                    try {  
+                        node = JsonMessage.buildMessage("success", "Student already previously credited.", json, mapper);
+                    } catch (Exception e) {
+                        node = JsonMessage.buildMessage("failure", e.getMessage(), mapper);
+                    }
+                }
+            } else {
+                try {  
+                    node = JsonMessage.buildMessage("success", "Trasaction not yet completed.", json, mapper);
+                } catch (Exception e) {
+                    node = JsonMessage.buildMessage("failure", e.getMessage(), mapper);
                 }
             }
 
-            ObjectNode node;
-            try {  
-                node = JsonMessage.buildMessage("success", "", json, mapper);
-            } catch (Exception e) {
-                node = JsonMessage.buildMessage("failure", e.getMessage(), mapper);
-            }
+            
             return node;
         } catch (IOException e) {
             e.printStackTrace();
