@@ -15,7 +15,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.unicamp.Utils.JsonMessage;
 import com.unicamp.dao.PixTransferenceDao;
-import com.unicamp.dao.RestaurantDao;
 import com.unicamp.entity.PixTransference;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -31,7 +30,6 @@ public class PixService {
     private static String dev_app_key = "d27b977908ffab20136ae17d70050f56b971a5bb";
 
     private PixTransferenceDao pixTransferenceDao;
-    private RestaurantDao restaurantDao;
     private ObjectMapper mapper = new ObjectMapper();
 
     public PixService(PixTransferenceDao pixTransferenceDao) {
@@ -152,7 +150,7 @@ public class PixService {
     }
 
     private static String generateTxid(String cpf, String nome){
-        nome = nome.replace("-", "").toUpperCase();
+        nome = nome.replace("-", "").replace(" ", "").toUpperCase();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         LocalDateTime now = LocalDateTime.now();
         return cpf + nome + dtf.format(now);
