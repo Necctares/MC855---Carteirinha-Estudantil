@@ -6,9 +6,18 @@ import 'package:flutter/material.dart';
 import 'screens/mainMenu.dart';
 import 'screens/carteirinha.dart';
 import 'screens/telaInicial.dart';
+import 'package:provider/provider.dart';
+import 'package:projeto/notification_service.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        Provider<NotificationService>(create: (context) => NotificationService()),
+      ],
+      child: const MyApp(),
+    )
+  );
 }
 
 class MyApp extends StatelessWidget {
