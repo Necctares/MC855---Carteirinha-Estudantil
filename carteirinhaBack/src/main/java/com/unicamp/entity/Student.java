@@ -55,4 +55,8 @@ public class Student {
     public Date getExpirationDate() {
         return expirationDate;
     }
+
+    public String getCpf() {
+        return cpf;
+    }
 }

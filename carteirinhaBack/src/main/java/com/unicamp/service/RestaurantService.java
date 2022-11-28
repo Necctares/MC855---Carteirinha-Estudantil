@@ -41,9 +41,10 @@ public class RestaurantService {
         return restaurant;
     }
 
-    public ObjectNode getRestaurantByRA(Integer ra) {
+    public ObjectNode getRestaurantByRA(Integer ra, String key) {
         ObjectNode node;
         try {
+            AuthCheck.authenticate(key, ra);
             node = JsonMessage.buildMessage("success", "", restaurantDao.findById(ra).get(), mapper);
         } catch (Exception e) {
             node = JsonMessage.buildMessage("failure", e.getMessage(), mapper);
@@ -51,10 +52,10 @@ public class RestaurantService {
         return node;
     }
 
-    public ObjectNode save(String key, Restaurant saveRestaurant) {
+    public ObjectNode save(String key, Restaurant saveRestaurant, Integer id) {
         ObjectNode node;
         try {
-            AuthCheck.authenticate(key);
+            AuthCheck.authenticateAdmin(key, id);
             node = JsonMessage.buildMessage("success", "", restaurantDao.save(saveRestaurant), mapper);
         } catch (Exception e) {
             node = JsonMessage.buildMessage("failure", e.getMessage(), mapper);
@@ -62,9 +63,10 @@ public class RestaurantService {
         return node;
     }
 
-    public ObjectNode deleteRestaurantById(Integer ra) {
+    public ObjectNode deleteRestaurantById(Integer ra, String key, Integer id) {
         ObjectNode node;
         try {
+            AuthCheck.authenticateAdmin(key, id);
             restaurantDao.deleteById(ra);
             node = JsonMessage.buildMessage("success", "", mapper);
         } catch (Exception e) {
@@ -73,10 +75,10 @@ public class RestaurantService {
         return node;
     }
 
-    public ObjectNode clearMealStats(String oAuthKey) {
+    public ObjectNode clearMealStats(String oAuthKey, Integer id) {
         ObjectNode node;
         try {
-            AuthCheck.authenticate(oAuthKey);
+            AuthCheck.authenticateAdmin(oAuthKey, id);
             restaurantDao.clearMealStats();
             node = JsonMessage.buildMessage("success", "", mapper);
         } catch (Exception e) {
@@ -85,10 +87,11 @@ public class RestaurantService {
         return node;
     }
 
-    public ObjectNode eated(Integer ra) {
+    public ObjectNode eated(Integer ra, String key, Integer id) {
         Restaurant restaurant;
         ObjectNode node;
         try {
+            AuthCheck.authenticateAdmin(key, id);
             Restaurant currentRestaurant = getRestaurantById(ra);
             Double currentCredits = currentRestaurant.getCredits() - RESTAURANT_FEE;
             if ((currentRestaurant.getIsPostPaid() && !currentRestaurant.getIsAlreadyAte())
@@ -111,9 +114,10 @@ public class RestaurantService {
         return node;
     }
 
-    public ObjectNode recharged(Integer ra, Double value) {
+    public ObjectNode recharged(Integer ra, Double value, String key, Integer id) {
         ObjectNode node;
         try {
+            AuthCheck.authenticateAdmin(key, id);
             Restaurant currentRestaurant = getRestaurantById(ra);
             if (value > 0) {
                 restaurantDao.recharged(ra, currentRestaurant.getCredits() + value);
@@ -128,10 +132,11 @@ public class RestaurantService {
         return node;
     }
 
-    public ObjectNode updateRoll(Integer ra) {
+    public ObjectNode updateRoll(Integer ra, String key, Integer id) {
         Double debt;
         ObjectNode node;
         try {
+            AuthCheck.authenticateAdmin(key, id);
             Restaurant currentRestaurant = getRestaurantById(ra);
             if (currentRestaurant.getIsPostPaid()) {
                 debt = currentRestaurant.getCredits();

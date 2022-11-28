@@ -20,11 +20,6 @@ public class OauthController {
         this.oAuthService = oAuthService;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ObjectNode getOauthById(@RequestBody ObjectNode response) {
-        return oAuthService.getOauthById(response.get("ra").asInt());
-    }
-
     @RequestMapping(value = "", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ObjectNode setOauthById(@RequestBody ObjectNode response) {
         return oAuthService.setOauthById(response.get("ra").asInt());

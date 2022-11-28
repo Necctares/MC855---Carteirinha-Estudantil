@@ -28,16 +28,6 @@ public class OauthService {
         this.oAuthDao = oAuthDao;
     }
 
-    public ObjectNode getOauthById(Integer ra) {
-        ObjectNode node;
-        try {
-            node = JsonMessage.buildMessage("success", "", oAuthDao.findById(ra).get(), mapper);
-        } catch (Exception e) {
-            node = JsonMessage.buildMessage("failure", e.getMessage(), mapper);
-        }
-        return node;
-    }
-
     public ObjectNode setOauthById(Integer ra) {
         ObjectNode node;
         try {

@@ -24,26 +24,26 @@ public class StudentController {
 
     @RequestMapping(value = "/byId", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ObjectNode getStudentById(@RequestBody ObjectNode response) {
-        return studentService.findById(response.get("ra").asInt());
+        return studentService.findById(response.get("ra").asInt(), response.get("key").asText());
     }
 
     // TODO: Key check security
     @RequestMapping(value = "/del", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ObjectNode deleteStudentById(@RequestBody ObjectNode response) {
-        return studentService.delete(response.get("ra").asInt());
+        return studentService.delete(response.get("ra").asInt(), response.get("key").asText(), response.get("id").asInt());
     }
 
     @RequestMapping(value = "/insert", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ObjectNode insertStudent(@RequestBody ObjectNode response) {
-        return studentService.save(mapper.convertValue(response.get("student"), Student.class));
+        return studentService.save(mapper.convertValue(response.get("student"), Student.class), response.get("key").asText(), response.get("id").asInt());
     }
 
     @Controller
     @RequestMapping("/student")
     public class StudentView {
         @RequestMapping(value = "/show", method = RequestMethod.GET)
-        public String student(Model model, @RequestParam int id) {
-            ObjectNode actual = studentService.findById(id);
+        public String student(Model model, @RequestParam int id, @RequestParam String key) {
+            ObjectNode actual = studentService.findById(id, key);
             if (Objects.isNull(actual)) {
                 model.addAttribute("student", "Não foi encontrado nenhum estudante com este RA");
                 model.addAttribute("course", "Curso invalido");

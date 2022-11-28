@@ -3,18 +3,31 @@ package com.unicamp.Utils;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
+import org.springframework.stereotype.Service;
 import com.unicamp.Exceptions.AuthExceptions;
+import com.unicamp.dao.OauthDao;
 
+@Service
 public class AuthCheck {
-    // TODO: Change this after implementation of oAuth in database
-    private static final String OAUTH_KEY = "909090";
+    private static OauthDao oAuthDao;
     private static final String KEY_MISMATCHED = "Authentication Problem. Key mismatched.";
     private static final String NO_SUCH_ALGORITHM = "Authentication Problem. No such algorithm enconder in environment.";
     private static final String UNSUPPORTED_ENCONDING = "Authentication Problem. Unsupported encoder format.";
 
-    public static Boolean authenticate(String givenKey) throws AuthExceptions {
-        if (OAUTH_KEY.equals(givenKey)) {
+    public AuthCheck(OauthDao oAuthDao) {
+        AuthCheck.oAuthDao = oAuthDao;
+    }
+
+    public static Boolean authenticate(String givenKey, Integer id) throws AuthExceptions {
+        if (oAuthDao.findById(id).get().getAccess_token().equals(givenKey)) {
+            return true;
+        } else {
+            throw new AuthExceptions(KEY_MISMATCHED);
+        }
+    }
+
+    public static Boolean authenticateAdmin(String givenKey, Integer id) throws AuthExceptions {
+        if (id == 0 && oAuthDao.findById(id).get().getAccess_token().equals(givenKey)) {
             return true;
         } else {
             throw new AuthExceptions(KEY_MISMATCHED);

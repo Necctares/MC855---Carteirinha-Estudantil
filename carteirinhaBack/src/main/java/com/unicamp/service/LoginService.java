@@ -7,6 +7,8 @@ import com.unicamp.Utils.AuthCheck;
 import com.unicamp.Utils.JsonMessage;
 import com.unicamp.dao.LoginDao;
 import com.unicamp.entity.Login;
+import com.unicamp.entity.Oauth;
+import com.unicamp.vo.LoginVo;
 
 @Service
 public class LoginService {
@@ -21,8 +23,9 @@ public class LoginService {
         ObjectNode node;
         try {
             Login login = loginDao.findById(ra).get();
+            Oauth oAuth = loginDao.getToken(ra);
             if (login.getPassword().equals(AuthCheck.generateHash(password))) {
-                node = JsonMessage.buildMessage("success", "", mapper);
+                node = JsonMessage.buildMessage("success", "", new LoginVo(ra, oAuth.getAccess_token()) , mapper);
             } else {
                 node = JsonMessage.buildMessage("failure", "Invalid password", mapper);
             }
