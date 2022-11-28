@@ -22,15 +22,18 @@ public class Student {
     @Column(name="exp_date", nullable = false)
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm")
     private Date expirationDate;
+    @Column(name="cpf", nullable = false, length = 11)
+    private String cpf;
 
     public Student(){}
 
-    public Student(Integer ra, String name, String course, String imageUrl, Date date) {
+    public Student(Integer ra, String name, String course, String imageUrl, Date date, String cpf) {
         this.ra = ra;
         this.name = name;
         this.course = course;
         this.imageUrl = imageUrl;
         this.expirationDate = date;
+        this.cpf = cpf;
     }
 
     public Integer getRa() {
