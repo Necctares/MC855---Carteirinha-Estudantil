@@ -7,7 +7,7 @@ import 'screens/mainMenu.dart';
 import 'screens/carteirinha.dart';
 import 'screens/telaInicial.dart';
 import 'package:provider/provider.dart';
-import 'package:projeto/notification_service.dart';
+import 'package:screens/notification_service.dart';
 
 void main() {
   runApp(
