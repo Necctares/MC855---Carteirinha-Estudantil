@@ -22,7 +22,12 @@ public class LoginController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ObjectNode getRestaurantById(@RequestBody ObjectNode response) {
+    public ObjectNode login(@RequestBody ObjectNode response) {
+        return loginService.login(response.get("ra").asInt(), response.get("password").asText());
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ObjectNode setLogin(@RequestBody ObjectNode response) {
         return loginService.login(response.get("ra").asInt(), response.get("password").asText());
     }
 }

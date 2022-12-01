@@ -21,6 +21,12 @@ public class Login {
     public Login() {
     }
 
+    public Login(Integer ra, String password, boolean isAdmin) {
+        this.ra = ra;
+        this.password = password;
+        this.isAdmin = isAdmin;
+    }
+
     public Integer getRa() {
         return ra;
     }

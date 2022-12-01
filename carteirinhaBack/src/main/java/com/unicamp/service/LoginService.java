@@ -34,4 +34,15 @@ public class LoginService {
         }
         return node;
     }
+
+    public ObjectNode setLogin(Integer ra, String password) {
+        ObjectNode node;
+        try {
+            loginDao.save(new Login(ra, AuthCheck.generateHash(password), false));
+            node = JsonMessage.buildMessage("success", "operation completed", mapper);
+        } catch (Exception e) {
+            node = JsonMessage.buildMessage("failure", e.getMessage(), mapper);
+        }
+        return node;
+    }
 }
