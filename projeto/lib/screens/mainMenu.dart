@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:untitled/screens/credentials.dart';
+import 'package:untitled/screens/restaurant.dart';
 import 'menuLateral.dart';
 import 'carteirinha.dart';
 import 'recarregarValor.dart';
@@ -9,13 +11,16 @@ class mainMenu extends StatelessWidget {
   const mainMenu({
     super.key,
     required this.inform,
+    required this.rest,
+    required this.credential,
   });
 
   final usuarioInfo inform;
+  final restaurant rest;
+  final credentials credential;
 
   @override
   Widget build(BuildContext context) {
-
     void _autentificar() {
       Navigator.of(context).push(
         MaterialPageRoute<void>(
@@ -30,7 +35,11 @@ class mainMenu extends StatelessWidget {
       Navigator.of(context).push(
         MaterialPageRoute<void>(
           builder: (context) {
-            return recarregarValor(inform: inform,);
+            return recarregarValor(
+              inform: inform,
+              rest: rest,
+              credential: credential,
+            );
           },
         ),
       );
@@ -47,7 +56,9 @@ class mainMenu extends StatelessWidget {
     }
 
     return Scaffold(
-      drawer: menuLateral(inform: inform,),
+      drawer: menuLateral(
+        inform: inform,
+      ),
       appBar: AppBar(
         actions: [
           Image.asset('assets/images/logounicamp.png'),
@@ -60,7 +71,7 @@ class mainMenu extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               CircleAvatar(
-                foregroundImage: AssetImage('assets/images/fotoperfil.jpeg'),
+                foregroundImage: NetworkImage(inform.url),
                 radius: 100,
               ),
               SizedBox(
@@ -73,7 +84,7 @@ class mainMenu extends StatelessWidget {
                 children: <Widget>[
                   Text('Nome: ' + inform.nome),
                   Text('Matrícula: ' + inform.matricula.toString()),
-                  Text('Crédito: R\$ 7.14 ')
+                  Text('Crédito: R\$ ' + rest.credits.toStringAsFixed(2))
                 ],
               ),
               SizedBox(

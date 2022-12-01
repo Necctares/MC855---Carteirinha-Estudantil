@@ -3,19 +3,24 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:untitled/screens/credentials.dart';
+import 'package:untitled/screens/restaurant.dart';
 import 'dart:convert';
 import 'usuarioInfo.dart';
 import 'transferenciaPix.dart';
 
 class recarregarQR extends StatefulWidget {
-  const recarregarQR({
-    super.key,
-    required this.value,
-    required this.inform
-});
+  const recarregarQR(
+      {super.key,
+      required this.value,
+      required this.inform,
+      required this.rest,
+      required this.credential});
 
   final inform;
   final value;
+  final restaurant rest;
+  final credentials credential;
 
   @override
   State<recarregarQR> createState() => _recarregarQRState();
@@ -24,9 +29,8 @@ class recarregarQR extends StatefulWidget {
 class _recarregarQRState extends State<recarregarQR>
     with TickerProviderStateMixin {
   @override
-
   recarregarQR get widget => super.widget;
-  var codigoPix = '00020101021226770014BR.GOV.BCB.P...';
+  var codigoPix;
   Duration timerDuration = Duration(minutes: 5);
   late AnimationController controller;
   Future<transferenciaPix>? _futurePIX;
@@ -98,12 +102,23 @@ class _recarregarQRState extends State<recarregarQR>
         SizedBox(
           height: 50,
         ),
-        ElevatedButton(
-          onPressed: () async {
-            await Clipboard.setData(ClipboardData(text: codigoPix));
-          },
-          child: Text('Copiar QR Code'),
-        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+          ElevatedButton(
+            onPressed: () async {
+              await Clipboard.setData(ClipboardData(text: codigoPix));
+            },
+            child: Text('Copiar QR Code.'),
+          ),
+          SizedBox(width: 20,),
+          ElevatedButton(
+            onPressed: () async {
+              await Clipboard.setData(ClipboardData(text: codigoPix));
+            },
+            child: Text('Checar Pagamento.'),
+          ),
+        ],)
       ],
     );
   }
@@ -115,8 +130,7 @@ class _recarregarQRState extends State<recarregarQR>
         if (snapshot.hasData) {
           codigoPix = snapshot.data!.qrcode;
           return _buildColumn();
-        }
-        else {
+        } else {
           return Container(
             alignment: Alignment.center,
             child: CircularProgressIndicator(),
@@ -129,23 +143,21 @@ class _recarregarQRState extends State<recarregarQR>
   // retorna um json
   // json[]
   // json['txid'] -> verifica se o QRcode foi pago
-  Future<transferenciaPix> _gerarStringQRCode(String value,usuarioInfo inform) async {
-    final response = await http.post(
-        Uri.parse('localhost:8080/pix/generate-pix'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode({
-          "ra": inform.matricula,
-          "cpf": inform.cpf,
-          "nome": inform.nome,
-          "valor": "7.14"
-        })
-    );
+  Future<transferenciaPix> _gerarStringQRCode(
+      String value, usuarioInfo inform) async {
+    final response =
+        await http.post(Uri.parse('https://carteirinhadigital-364020.rj.r.appspot.com/pix/generate-pix'),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: jsonEncode({
+              "ra": inform.matricula,
+              "cpf": inform.cpf,
+              "nome": inform.nome,
+              "valor": value.toString(),
+            }));
 
-    print(jsonDecode(response.body));
-
-    if (response.statusCode == 201) {
+    if (response.statusCode == 200) {
       return transferenciaPix.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Failed to generate PIX QRcode.');
@@ -187,10 +199,7 @@ class _recarregarQRState extends State<recarregarQR>
           Image.asset('assets/images/logounicamp.png'),
         ],
       ),
-      body: SizedBox(
-        width: double.infinity,
-        child: buildFutureBuilder()
-      ),
+      body: SizedBox(width: double.infinity, child: buildFutureBuilder()),
     );
   }
 }

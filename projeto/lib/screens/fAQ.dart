@@ -37,7 +37,7 @@ class fAQ extends StatelessWidget {
           Divider(),
           ListTile(
             title: Text(
-              'Qual valor mínimo eu posso inserir ?',
+              'Qual valor mínimo eu posso inserir?',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             subtitle:

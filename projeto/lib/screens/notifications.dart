@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'menuLateral.dart';
 import 'notification_service.dart';
 import 'package:provider/provider.dart';
 
 class confignot extends StatefulWidget {
-  const confignot({Key? key}) : super(key: key);
+  const confignot({super.key, required this.inform});
+
+  final inform;
 
   @override
   State<confignot> createState() => _confignotState();
@@ -13,35 +16,30 @@ class _confignotState extends State<confignot> {
   bool valor = false;
   var _opcoes = ['Diariamente', 'Semanalmente', 'Mensalmente'];
   String dropDownStringItem = "Diariamente";
+  confignot get widget => super.widget;
 
   showNotification() {
     setState(() {
       valor = !valor;
-      if(valor) {
-        Provider.of<NotificationService>(context, listen: false).showNotification(
+      if (valor) {
+        Provider.of<NotificationService>(context, listen: false)
+            .showNotification(
           CustomNotification(
-              id: 1,
-              title: 'Carteirinha Unicamp',
-              body: 'Saldo: R\$12.00'
-          ),
+              id: 1, title: 'Carteirinha Unicamp', body: 'Saldo: R\$12.00'),
         );
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: menuLateral(
+        inform: widget.inform,
+      ),
       appBar: AppBar(
-        leading: SizedBox(
-          height: 100,
-          width: 100,
-          child: IconButton(
-            icon: const Icon(Icons.list),
-            onPressed: () {},
-            tooltip: 'Menu lateral',
-          ),
-        ),
-        actions: [Image.asset('assets/images/logounicamp.png'),
+        actions: [
+          Image.asset('assets/images/logounicamp.png'),
         ],
       ),
       body: SizedBox(
@@ -52,7 +50,8 @@ class _confignotState extends State<confignot> {
               Text(
                 'Configuração de Notificações',
                 textAlign: TextAlign.center,
-                style: TextStyle(height:5, fontSize: 25, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    height: 5, fontSize: 25, fontWeight: FontWeight.bold),
               ),
               SizedBox(
                 height: 50,
@@ -77,60 +76,53 @@ class _confignotState extends State<confignot> {
                     ]),
               ),
               SizedBox(
-                height:25,
+                height: 25,
               ),
               Container(
-                width: 308 ,
+                width: 308,
                 alignment: Alignment.center,
-                child: Row(
-                    children: <Widget>[
-                      Text(
-                        'Frequência',
-                        // textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      Container(
-                        width: 60 ,
-                        alignment: Alignment.center,
-                      ),
-                      DropdownButton<String>(
-                        borderRadius: BorderRadius.all(
-                            Radius.circular(25)
-                        ),
-                        value: dropDownStringItem,
-                        items: _opcoes.map((value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            dropDownStringItem =  newValue!;
-                          });
-                        },
-                      ),
-                    ]
-                ),
+                child: Row(children: <Widget>[
+                  Text(
+                    'Frequência',
+                    // textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  Container(
+                    width: 60,
+                    alignment: Alignment.center,
+                  ),
+                  DropdownButton<String>(
+                    borderRadius: BorderRadius.all(Radius.circular(25)),
+                    value: dropDownStringItem,
+                    items: _opcoes.map((value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        dropDownStringItem = newValue!;
+                      });
+                    },
+                  ),
+                ]),
               ),
               SizedBox(
-                height:25,
+                height: 25,
               ),
               Container(
                 width: 304,
                 alignment: Alignment.center,
-                child: Row(
-                    children: <Widget>[
-                      Text(
-                        'Saldo mínimo',
-                        // textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ]
-                ),
+                child: Row(children: <Widget>[
+                  Text(
+                    'Saldo mínimo',
+                    // textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ]),
               ),
-            ]
-        ),
+            ]),
       ),
     );
   }

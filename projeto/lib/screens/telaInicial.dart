@@ -2,8 +2,11 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:untitled/screens/credentials.dart';
+import 'package:untitled/screens/restaurant.dart';
 import 'usuarioInfo.dart';
 import 'mainMenu.dart';
+import 'credentials.dart';
 import 'package:http/http.dart' as http;
 
 class telaInicial extends StatefulWidget {
@@ -14,13 +17,21 @@ class telaInicial extends StatefulWidget {
 }
 
 class _telaInicialState extends State<telaInicial> {
-
   final raController = TextEditingController();
   final passwordController = TextEditingController();
   bool rememberRA = false;
   String ra = '';
   String? password;
-  final user = usuarioInfo(nome: "David", matricula: 261032,cpf: '70140422110',curso: 'Engenharia de Computacao',data_de_expiracao: '2023-01-01',url: 'https://dac.unicamp.br/pics/123456');
+  credentials? credential;
+  usuarioInfo? user;
+  restaurant? rest;
+  // final user = usuarioInfo(
+  //     nome: "David",
+  //     matricula: 261032,
+  //     cpf: '70140422110',
+  //     curso: 'Engenharia de Computacao',
+  //     data_de_expiracao: '2023-01-01',
+  //     url: 'https://dac.unicamp.br/pics/123456');
 
   @override
   void initState() {
@@ -37,15 +48,37 @@ class _telaInicialState extends State<telaInicial> {
 
   void _logar() async {
     _saveRA();
-    _logarUsuario();
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute<void>(
-        builder: (context) {
-          return mainMenu(inform: user,);
-        },
-      ),
-      (route) => false,
-    );
+    credential = await _logarUsuario();
+    if (credential!.response == "success") {
+      user = await _getUserInfo(credential!);
+      rest = await _getRestaurant(credential!);
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute<void>(
+          builder: (context) {
+            return mainMenu(
+              inform: user!,
+              rest: rest!,
+              credential: credential!,
+            );
+          },
+        ),
+        (route) => false,
+      );
+    } else {
+      showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+                title: Text("Erro"),
+                content: Text("Login Inválido"),
+                actions: [
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text("Descartar"))
+                ],
+              ));
+    }
   }
 
   Future _getRA() async {
@@ -64,64 +97,64 @@ class _telaInicialState extends State<telaInicial> {
     prefs.setBool('rememberEmail', rememberRA);
     if (rememberRA) {
       prefs.setString('email', raController.text);
-    }
-    else {
+    } else {
       prefs.remove('email');
     }
   }
 
-void _logarUsuario() async {
-    // retorna um json
-    // json[]
-    // final response = await http.post(
-    //     Uri.parse('localhost:8080/login'),
-    //     headers: <String, String>{
-    //       'Content-Type': 'application/json; charset=UTF-8',
-    //     },
-    //     body: jsonEncode({
-    //       "ra": raController.text,
-    //       "password": passwordController.text,
-    //     })
-    // );
-    //
-    // print(jsonDecode(response.body));
-    //
-    // if (response.statusCode == 201) {
-    //   var jsonobject = jsonDecode(response.body);
-    //   var key = jsonobject['key'];
-    //   if (jsonobject['status'] == 'success') {
-    //     return usuarioInfo.fromJson(jsonDecode(response.body));
-    //   }
-    //   else {
-    //     throw Exception('Failed to login');
-    //   }
-    // } else {
-    //   throw Exception('Failed to login.');
-    // }
+  Future<credentials> _logarUsuario() async {
+    final response = await http.post(
+        Uri.parse('https://carteirinhadigital-364020.rj.r.appspot.com/login'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode({
+          "ra": raController.text,
+          "password": passwordController.text,
+        }));
 
-    // var headers = {
-    //   'Content-Type': 'application/json'
-    // };
-    // var request = http.Request('POST', Uri.parse('localhost:8080/login'));
-    // request.body = json.encode({
-    //   "ra": 261032,
-    //   "password": "password"
-    // });
-    // request.headers.addAll(headers);
-    //
-    // http.StreamedResponse response = await request.send();
-    //
-    // print(response.toString());
-    //
-    // if (response.statusCode == 200) {
-    //   print(await response.stream.bytesToString());
-    // }
-    // else {
-    //   print(response.reasonPhrase);
-    // }
+    if (response.statusCode == 200) {
+      return credentials.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Bad Connection.');
+    }
+  }
 
-  var response = await http.get(Uri.parse('http://127.0.0.1:8080/'));
-  print(response.toString());
+  Future<usuarioInfo> _getUserInfo(credentials cred) async {
+    final response = await http.post(
+        Uri.parse(
+            'https://carteirinhadigital-364020.rj.r.appspot.com/student/byId'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode({
+          "ra": raController.text,
+          "key": cred.accessToken,
+        }));
+
+    if (response.statusCode == 200) {
+      return usuarioInfo.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Bad Connection.');
+    }
+  }
+
+  Future<restaurant> _getRestaurant(credentials cred) async {
+    final response = await http.post(
+        Uri.parse('https://carteirinhadigital-364020.rj.r.appspot.com/ru'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode({
+          "ra": raController.text,
+          "key": cred.accessToken,
+        }));
+
+    if (response.statusCode == 200) {
+      return restaurant.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to login.');
+    }
   }
 
   @override

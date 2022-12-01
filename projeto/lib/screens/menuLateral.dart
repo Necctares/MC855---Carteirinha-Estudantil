@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'Notificações.dart';
 import 'fAQ.dart';
 import 'usuarioInfo.dart';
 import 'notifications.dart';
@@ -23,10 +22,10 @@ class menuLateral extends StatelessWidget {
             Container(
               width: double.infinity,
               child: UserAccountsDrawerHeader(
-                accountEmail: Text(inform.nome[0] + inform.matricula.toString() + '@dac.unicamp.br'),
+                accountEmail: Text(inform.nome[0].toString().toLowerCase() + inform.matricula.toString() + '@dac.unicamp.br'),
                 accountName: Text(inform.nome),
                 currentAccountPicture: CircleAvatar(
-                  foregroundImage: AssetImage('assets/images/fotoperfil.jpeg'),
+                  foregroundImage: NetworkImage(inform.url),
                 ),
                 decoration: BoxDecoration(
                   color: Color(0xFFB71C1C),
@@ -41,26 +40,13 @@ class menuLateral extends StatelessWidget {
               },
             ),
             ListTile(
-              title: Text('Notificações'),
-              hoverColor: Colors.blue,
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute<void>(
-                    builder: (context) {
-                      return Notificacoes(inform: inform,);
-                    },
-                  ),
-                );
-              },
-            ),
-            ListTile(
               title: Text('Configurações'),
               hoverColor: Colors.blue,
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute<void>(
                     builder: (context) {
-                      return confignot();
+                      return confignot(inform: inform,);
                     },
                   ),
                 );
