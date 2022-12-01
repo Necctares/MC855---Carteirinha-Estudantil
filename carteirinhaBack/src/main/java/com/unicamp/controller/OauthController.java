@@ -22,7 +22,7 @@ public class OauthController {
 
     @RequestMapping(value = "", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ObjectNode setOauthById(@RequestBody ObjectNode response) {
-        return oAuthService.setOauthById(response.get("ra").asInt());
+        return oAuthService.setOauthById(response.get("ra").asInt(), response.get("id").asInt(), response.get("key").asText());
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.GET)

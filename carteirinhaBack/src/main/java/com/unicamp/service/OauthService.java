@@ -28,9 +28,10 @@ public class OauthService {
         this.oAuthDao = oAuthDao;
     }
 
-    public ObjectNode setOauthById(Integer ra) {
+    public ObjectNode setOauthById(Integer ra, Integer id, String key) {
         ObjectNode node;
         try {
+            AuthCheck.authenticateAdmin(key, id);
             Oauth oAuth = new Oauth();
             oAuth.setRa(ra);
             oAuth.setAccess_token(AuthCheck.generateHash(
