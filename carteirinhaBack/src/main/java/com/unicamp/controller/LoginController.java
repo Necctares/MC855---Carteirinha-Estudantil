@@ -23,12 +23,11 @@ public class LoginController {
 
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ObjectNode login(@RequestBody ObjectNode response) {
-	  System.out.println("Okokok");
         return loginService.login(response.get("ra").asInt(), response.get("password").asText());
     }
 
     @RequestMapping(value = "", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ObjectNode setLogin(@RequestBody ObjectNode response) {
-        return loginService.setLogin(response.get("ra").asInt(), response.get("password").asText());
+        return loginService.setLogin(response.get("ra").asInt(), response.get("password").asText(), response.get("key").asText(), response.get("id").asInt());
     }
 }
