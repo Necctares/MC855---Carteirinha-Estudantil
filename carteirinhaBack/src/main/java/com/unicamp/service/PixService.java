@@ -65,7 +65,7 @@ public class PixService {
             MediaType mediaType = MediaType.parse("application/json");
             RequestBody body = RequestBody.create("{\n    \"calendario\": {\n        \"expiracao\": 300\n    },\n    \"devedor\": {\n        \"cpf\": " + cpf + ",\n        \"nome\": \"" + nome + "\"\n    },\n    \"valor\": {\n        \"original\": " + valor + "\n    },\n    \"chave\": \"28779295827\",\n    \"solicitacaoPagador\": \"Recarga de RA.\"\n}", mediaType);
             Request request = new Request.Builder()
-                    .url("https://api.hm.bb.com.br/pix/v1/cobqrcode/" + PixService.generateTxid(cpf, nome) + "?gw-dev-app-key=" + dev_app_key)
+                    .url("https://api.hm.bb.com.br/pix/v1/cobqrcode/" + PixService.generateTxid(cpf) + "?gw-dev-app-key=" + dev_app_key)
                     .method("PUT", body)
                     .addHeader("Content-Type", "application/json")
                     .addHeader("Authorization", "Bearer " + PixService.generateAuthToken())
