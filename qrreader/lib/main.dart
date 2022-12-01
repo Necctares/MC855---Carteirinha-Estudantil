@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'screens/autorizado.dart';
 import 'screens/negado.dart';
+import 'screens/restaurant.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,12 +37,23 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
+  get http => null;
+
   @override
   Widget build(BuildContext context) {
     String code = 'Hello';
 
-    int _validBarCode(Barcode barcode) {
-      return 1;
+    Future<int> _validBarCode(Barcode barcode) async {
+      String ra = barcode.rawValue!;
+      restaurant rest = await _getRestaurant(int.parse(ra));
+      if (rest.already_ate == 1) {
+        return 0;
+      } else if (rest.credits < 3.00) {
+        return 0;
+      } else {
+        _debitStudent(int.parse(ra));
+        return 1;
+      }
     }
 
     return MobileScanner(
@@ -49,21 +63,60 @@ class MyHomePage extends StatelessWidget {
             Navigator.of(context).push(
               MaterialPageRoute<void>(
                 builder: (context) {
-                  return autorizado(barcode: barcode,);
+                  return autorizado(
+                    barcode: barcode,
+                  );
                 },
               ),
             );
-          }
-          else {
+          } else {
             Navigator.of(context).push(
               MaterialPageRoute<void>(
                 builder: (context) {
-                  return negado(barcode: barcode,);
+                  return negado(
+                    barcode: barcode,
+                  );
                 },
               ),
             );
           }
         });
+  }
+
+  Future<restaurant> _getRestaurant(int ra) async {
+    final response = await http.post(
+        Uri.parse('https://carteirinhadigital-364020.rj.r.appspot.com/ru'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode({
+          "ra": ra,
+          "key": 'ACESSO',
+        }));
+
+    if (response.statusCode == 200) {
+      return restaurant.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Bad Connection.');
+    }
+  }
+
+  void _debitStudent(int ra) async {
+    final response = await http.put(
+        Uri.parse('https://carteirinhadigital-364020.rj.r.appspot.com/ru/eated'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode({
+          "ra": ra,
+          "key": 'ACESSO',
+          "id": 0
+        }));
+
+    if (response.statusCode != 200) {
+      throw Exception('Bad Connection.');
+    } 
 
   }
+
 }
