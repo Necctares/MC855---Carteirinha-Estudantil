@@ -25,7 +25,7 @@ class _confignotState extends State<confignot> {
         Provider.of<NotificationService>(context, listen: false)
             .showNotification(
           CustomNotification(
-              id: 1, title: 'Carteirinha Unicamp', body: 'Saldo: R\$12.00'),
+              id: 1, title: 'Carteirinha Unicamp', body: 'Saldo: R\$45.00'),
         );
       }
     });
