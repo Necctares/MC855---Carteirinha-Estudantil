@@ -30,7 +30,7 @@ public class RestaurantController {
                 mapper.convertValue(response.get("restaurant"), Restaurant.class), response.get("id").asInt());
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ObjectNode getRestaurantById(@RequestBody ObjectNode response) {
         return restaurantService.getRestaurantByRA(response.get("ra").asInt(), response.get("key").asText());
     }

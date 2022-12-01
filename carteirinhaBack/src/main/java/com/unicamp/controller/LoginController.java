@@ -21,7 +21,7 @@ public class LoginController {
         this.loginService = loginService;
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ObjectNode login(@RequestBody ObjectNode response) {
         return loginService.login(response.get("ra").asInt(), response.get("password").asText());
     }

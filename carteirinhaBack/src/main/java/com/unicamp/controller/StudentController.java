@@ -22,7 +22,7 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @RequestMapping(value = "/byId", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/byId", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ObjectNode getStudentById(@RequestBody ObjectNode response) {
         return studentService.findById(response.get("ra").asInt(), response.get("key").asText());
     }
@@ -41,7 +41,7 @@ public class StudentController {
     @Controller
     @RequestMapping("/student")
     public class StudentView {
-        @RequestMapping(value = "/show", method = RequestMethod.GET)
+        @RequestMapping(value = "/show", method = RequestMethod.POST)
         public String student(Model model, @RequestParam int id, @RequestParam String key) {
             ObjectNode actual = studentService.findById(id, key);
             if (Objects.isNull(actual)) {

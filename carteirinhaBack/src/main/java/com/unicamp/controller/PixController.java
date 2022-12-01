@@ -26,7 +26,7 @@ public class PixController {
         return pixService.generatePix(response.get("ra").asInt(), response.get("cpf").asText(), response.get("nome").asText(), response.get("valor").asText());
     }
 
-    @RequestMapping(value = "/consult-pix", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/consult-pix", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ObjectNode consultPix(@RequestBody ObjectNode response) {
         return pixService.consultAndCreditPix(response.get("txid").asText());
     }
