@@ -49,7 +49,7 @@ class mainMenu extends StatelessWidget {
       Navigator.of(context).push(
         MaterialPageRoute<void>(
           builder: (context) {
-            return pagamentoQR();
+            return pagamentoQR(inform: inform, rest: rest, credential: credential,);
           },
         ),
       );

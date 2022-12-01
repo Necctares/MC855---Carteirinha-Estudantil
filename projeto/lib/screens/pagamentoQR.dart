@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:untitled/screens/credentials.dart';
+import 'package:untitled/screens/restaurant.dart';
+import 'package:untitled/screens/usuarioInfo.dart';
 
 class pagamentoQR extends StatelessWidget {
-  pagamentoQR({super.key});
+  pagamentoQR(
+      {super.key,
+      required this.inform,
+      required this.rest,
+      required this.credential});
 
-  var userCode = "https://www.youtube.com/watch?v=BvalYFjApoY";
+  final usuarioInfo inform;
+  final restaurant rest;
+  final credentials credential;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +46,7 @@ class pagamentoQR extends StatelessWidget {
               height: 75,
             ),
             QrImage(
-              data: userCode,
+              data: inform.matricula,
               version: QrVersions.auto,
               size: 300.0,
             ),
