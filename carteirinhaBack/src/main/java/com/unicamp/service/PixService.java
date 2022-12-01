@@ -150,10 +150,10 @@ public class PixService {
     }
 
     private static String generateTxid(String cpf, String nome){
-        nome = nome.replace("-", "").replace(" ", "").toUpperCase();{
+    nome = nome.replace("-", "").replace(" ", "").toUpperCase();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         LocalDateTime now = LocalDateTime.now();
-        return cpf + nome + dtf.format(now);
+        return cpf + dtf.format(now);
     }
 
 }
