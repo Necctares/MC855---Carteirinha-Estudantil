@@ -30,7 +30,7 @@ class mainMenu extends StatelessWidget {
       Navigator.of(context).push(
         MaterialPageRoute<void>(
           builder: (context) {
-            return recarregarValor();
+            return recarregarValor(inform: inform,);
           },
         ),
       );
@@ -47,7 +47,7 @@ class mainMenu extends StatelessWidget {
     }
 
     return Scaffold(
-      drawer: menuLateral(),
+      drawer: menuLateral(inform: inform,),
       appBar: AppBar(
         actions: [
           Image.asset('assets/images/logounicamp.png'),
@@ -73,7 +73,7 @@ class mainMenu extends StatelessWidget {
                 children: <Widget>[
                   Text('Nome: ' + inform.nome),
                   Text('Matrícula: ' + inform.matricula.toString()),
-                  Text('Crédito: R\$ ' + inform.saldo.toString())
+                  Text('Crédito: R\$ 7.14 ')
                 ],
               ),
               SizedBox(

@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
 import 'recarregarQR.dart';
+import 'usuarioInfo.dart';
 
-class recarregarValor extends StatefulWidget {
-  const recarregarValor({Key? key}) : super(key: key);
+class recarregarValor extends StatelessWidget {
+  recarregarValor({
+    super.key,
+    required this.inform,
+  });
 
-  @override
-  State<recarregarValor> createState() => _recarregarValorState();
-}
-
-class _recarregarValorState extends State<recarregarValor> {
-  void _recarregar() {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (context) {
-          return recarregarQR();
-        },
-      ),
-    );
-  }
+  final usuarioInfo inform;
+  final valorController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+
+    void _recarregar() {
+      Navigator.of(context).push(
+        MaterialPageRoute<void>(
+          builder: (context) {
+            return recarregarQR(value: valorController.text,inform: inform,);
+          },
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -52,6 +55,7 @@ class _recarregarValorState extends State<recarregarValor> {
                   border: OutlineInputBorder(),
                   hintText: 'Valor',
                 ),
+                controller: valorController,
               ),
             ),
             SizedBox(

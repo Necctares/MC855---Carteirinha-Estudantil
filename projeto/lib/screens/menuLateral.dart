@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'Notificações.dart';
 import 'fAQ.dart';
-import 'package:untitled/screens/mainMenu.dart';
+import 'usuarioInfo.dart';
+import 'notifications.dart';
 
 class menuLateral extends StatelessWidget {
-  const menuLateral({Key? key}) : super(key: key);
+  const menuLateral({
+    super.key,
+    required this.inform,
+});
+
+  final usuarioInfo inform;
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +23,8 @@ class menuLateral extends StatelessWidget {
             Container(
               width: double.infinity,
               child: UserAccountsDrawerHeader(
-                accountEmail: Text('r123456@dac.unicamp.br'),
-                accountName: Text('Renan'),
+                accountEmail: Text(inform.nome[0] + inform.matricula.toString() + '@dac.unicamp.br'),
+                accountName: Text(inform.nome),
                 currentAccountPicture: CircleAvatar(
                   foregroundImage: AssetImage('assets/images/fotoperfil.jpeg'),
                 ),
@@ -41,7 +47,7 @@ class menuLateral extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute<void>(
                     builder: (context) {
-                      return Notificacoes();
+                      return Notificacoes(inform: inform,);
                     },
                   ),
                 );
@@ -50,7 +56,15 @@ class menuLateral extends StatelessWidget {
             ListTile(
               title: Text('Configurações'),
               hoverColor: Colors.blue,
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (context) {
+                      return confignot();
+                    },
+                  ),
+                );
+              },
             ),
             ListTile(
               title: Text('Perguntas Frequentes'),
@@ -59,14 +73,11 @@ class menuLateral extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute<void>(
                     builder: (context) {
-                      return fAQ();
+                      return fAQ(inform: inform,);
                     },
                   ),
                 );
               },
-            ),
-            ListTile(
-              title: Text('Primeiro acesso ?'),
             ),
             ListTile(
               title: Text('Entre em contato'),

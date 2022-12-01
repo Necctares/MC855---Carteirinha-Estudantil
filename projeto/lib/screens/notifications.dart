@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_switch/flutter_custom_switch.dart';
+import 'notification_service.dart';
+import 'package:provider/provider.dart';
 
 class confignot extends StatefulWidget {
   const confignot({Key? key}) : super(key: key);
@@ -67,7 +68,7 @@ class _confignotState extends State<confignot> {
                         // textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 18),
                       ),
-                      FlutterCustomSwitch(
+                      Switch(
                         value: valor,
                         onChanged: (bool value) {
                           showNotification();

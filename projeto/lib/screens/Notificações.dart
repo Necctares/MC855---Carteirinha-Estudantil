@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'menuLateral.dart';
+import 'usuarioInfo.dart';
 
 class Notificacoes extends StatelessWidget {
-  const Notificacoes({Key? key}) : super(key: key);
+  const Notificacoes({
+    super.key,
+    required this.inform,
+});
+
+  final usuarioInfo inform;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: menuLateral(),
+      drawer: menuLateral(inform: inform,),
       appBar: AppBar(
         actions: [
           Image.asset('assets/images/logounicamp.png'),

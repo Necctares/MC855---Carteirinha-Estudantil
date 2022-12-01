@@ -23,6 +23,7 @@ public class LoginController {
 
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ObjectNode login(@RequestBody ObjectNode response) {
+	  System.out.println("Okokok");
         return loginService.login(response.get("ra").asInt(), response.get("password").asText());
     }
 

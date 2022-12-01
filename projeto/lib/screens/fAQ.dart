@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/screens/menuLateral.dart';
+import 'usuarioInfo.dart';
 
 class fAQ extends StatelessWidget {
-  const fAQ({Key? key}) : super(key: key);
+  const fAQ({
+    super.key,
+    required this.inform,
+});
+
+  final usuarioInfo inform;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: menuLateral(),
+      drawer: menuLateral(inform: inform,),
       appBar: AppBar(
         actions: [
           Image.asset('assets/images/logounicamp.png'),
