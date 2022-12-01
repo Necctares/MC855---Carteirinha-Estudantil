@@ -23,7 +23,7 @@ public class StudentService {
         ObjectNode node;
         try {
             AuthCheck.authenticate(key, ra);
-            node = JsonMessage.buildMessage("success", "", new StudentVo(studentDao.findById(Integer.valueOf(ra)).get()), mapper);
+            node = JsonMessage.buildMessage("success", "", studentDao.findById(Integer.valueOf(ra)).get(), mapper);
         } catch (Exception e) {
             node = JsonMessage.buildMessage("failure", e.getMessage(), mapper);
         }
