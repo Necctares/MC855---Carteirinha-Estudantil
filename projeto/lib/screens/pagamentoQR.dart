@@ -46,7 +46,7 @@ class pagamentoQR extends StatelessWidget {
               height: 75,
             ),
             QrImage(
-              data: inform.matricula,
+              data: inform.matricula.toString(),
               version: QrVersions.auto,
               size: 300.0,
             ),
