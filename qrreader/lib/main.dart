@@ -44,8 +44,10 @@ class MyHomePage extends StatelessWidget {
     String code = 'Hello';
 
     Future<int> _validBarCode(Barcode barcode) async {
-      String ra = barcode.rawValue!;
-      restaurant rest = await _getRestaurant(int.parse(ra));
+      String qrCodeString = barcode.rawValue!;
+      String ra = qrCodeString.substring(0, 5);
+      String acessToken = qrCodeString.substring(6);
+      restaurant rest = await _getRestaurant(int.parse(ra), acessToken);
       if (rest.already_ate == 1) {
         return 0;
       } else if (rest.credits < 3.00) {
@@ -83,7 +85,7 @@ class MyHomePage extends StatelessWidget {
         });
   }
 
-  Future<restaurant> _getRestaurant(int ra) async {
+  Future<restaurant> _getRestaurant(int ra, String acessToken) async {
     final response = await http.post(
         Uri.parse('https://carteirinhadigital-364020.rj.r.appspot.com/ru'),
         headers: <String, String>{
@@ -91,7 +93,7 @@ class MyHomePage extends StatelessWidget {
         },
         body: jsonEncode({
           "ra": ra,
-          "key": 'ACESSO',
+          "key": acessToken,
         }));
 
     if (response.statusCode == 200) {
@@ -103,20 +105,20 @@ class MyHomePage extends StatelessWidget {
 
   void _debitStudent(int ra) async {
     final response = await http.put(
-        Uri.parse('https://carteirinhadigital-364020.rj.r.appspot.com/ru/eated'),
+        Uri.parse(
+            'https://carteirinhadigital-364020.rj.r.appspot.com/ru/eated'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode({
           "ra": ra,
-          "key": 'ACESSO',
+          "key":
+              "C7784AFD92DE2CE4C00CFB887E3FA1B13D7535FFE70EC8C6B95F63A6AC064EFC",
           "id": 0
         }));
 
     if (response.statusCode != 200) {
       throw Exception('Bad Connection.');
-    } 
-
+    }
   }
-
 }
