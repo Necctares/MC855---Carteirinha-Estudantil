@@ -1,0 +1,16 @@
+#runtime: java
+runtime: java11
+#env: flex
+env: standard
+#entrypoint: java -cp "*" com.unicamp.App carteirinhaBack-0.1.0-ALPHA.war
+
+service: default
+runtime_config:
+  jdk: openjdk8
+env_variables:
+  SPRING_PROFILES_ACTIVE: "gcp,mysql"
+handlers:
+- url: /.*
+  script: this field is required, but ignored
+manual_scaling: 
+  instances: 1

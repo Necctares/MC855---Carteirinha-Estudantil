@@ -7,6 +7,7 @@ import com.unicamp.Utils.AuthCheck;
 import com.unicamp.Utils.JsonMessage;
 import com.unicamp.dao.StudentDao;
 import com.unicamp.entity.Student;
+import com.unicamp.vo.StudentVo;
 
 @Service
 public class StudentService {
@@ -22,7 +23,7 @@ public class StudentService {
         ObjectNode node;
         try {
             AuthCheck.authenticate(key, ra);
-            node = JsonMessage.buildMessage("success", "", studentDao.findById(Integer.valueOf(ra)).get(), mapper);
+            node = JsonMessage.buildMessage("success", "", new StudentVo(studentDao.findById(Integer.valueOf(ra)).get()), mapper);
         } catch (Exception e) {
             node = JsonMessage.buildMessage("success", e.getMessage(), mapper);
         }

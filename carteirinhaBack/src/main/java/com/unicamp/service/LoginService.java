@@ -35,9 +35,10 @@ public class LoginService {
         return node;
     }
 
-    public ObjectNode setLogin(Integer ra, String password) {
+    public ObjectNode setLogin(Integer ra, String password, String key, Integer id) {
         ObjectNode node;
         try {
+            AuthCheck.authenticateAdmin(key, id);
             loginDao.save(new Login(ra, AuthCheck.generateHash(password), false));
             node = JsonMessage.buildMessage("success", "operation completed", mapper);
         } catch (Exception e) {
