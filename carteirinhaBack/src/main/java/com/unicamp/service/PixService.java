@@ -149,11 +149,10 @@ public class PixService {
         return null;
     }
 
-    private static String generateTxid(String cpf, String nome){
-        nome = nome.replace("-", "").replace(" ", "").toUpperCase();
+    private static String generateTxid(String cpf){
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         LocalDateTime now = LocalDateTime.now();
-        return cpf + nome + dtf.format(now);
+        return cpf + dtf.format(now);
     }
 
 }
