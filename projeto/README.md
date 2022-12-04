@@ -26,6 +26,8 @@ Segue uma lista das telas criadas para o aplicativo, com descrição dos element
 
 1. Tela inicial
    * Descrição
+        - Funcionalidades: A tela inicial realiza o login do usuário, recebe como entrada a matrícula do aluno e a senha e, envia tais informações para o servidor. Caso as informações sejam válidas, passa para o Menu Principal, caso contrário, mostra um aviso para o usuário inserir outras informações
+        - Elementos presentes: A tela inicial tem dois campos de entrada de texto, uma checkbox para caso o usuário deseje guardar sua matrícula para usos posteriores e um botão que envia as informações para o servidor e realiza a mudança de página
    * [Código Tela inicial](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/telaInicial.dart)
 2. Menu Principal
    * Descrição
