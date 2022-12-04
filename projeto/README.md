@@ -25,14 +25,14 @@ A estrutura do FrontEnd está ilustrada na imagem abaixo.
 Segue uma lista das telas criadas para o aplicativo, com descrição dos elementos presentes, funcionalidade e link para o código disponível nesse repositório.
 
 1. Tela inicial
-  * Descrição
-  * [Código Tela inicial](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/telaInicial.dart)
+   * Descrição
+   * [Código Tela inicial](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/telaInicial.dart)
 2. Menu Principal
-  * Descrição
-  * [Código Menu Principal](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/mainMenu.dart)
+   * Descrição
+   * [Código Menu Principal](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/mainMenu.dart)
 3. QR Code carteirinha
-  * Descrição
-  * [Código QR Code carteirinha](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/carteirinha.dart)
+   * Descrição
+   * [Código QR Code carteirinha](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/carteirinha.dart)
 4. Foto Carteirinha
  * Descrição
  * [Código Foto carteirinha](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/fotoCarteirinha.dart)
