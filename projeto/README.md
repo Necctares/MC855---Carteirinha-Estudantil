@@ -25,29 +25,29 @@ A estrutura do FrontEnd está ilustrada na imagem abaixo.
 Segue uma lista das telas criadas para o aplicativo, com descrição dos elementos presentes, funcionalidade e link para o código disponível nesse repositório.
 
 1. Tela inicial
-  * Descrição
-  * [Código Tela inicial](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/telaInicial.dart)
+ * Descrição
+ * [Código Tela inicial](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/telaInicial.dart)
 2. Menu Principal
-  * Descrição
-  * [Código Menu Principal](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/mainMenu.dart)
+ * Descrição
+ * [Código Menu Principal](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/mainMenu.dart)
 3. QR Code carteirinha
-  * Descrição
-  * [Código QR Code carteirinha](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/carteirinha.dart)
+ * Descrição
+ * [Código QR Code carteirinha](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/carteirinha.dart)
 4. Foto Carteirinha
-  * Descrição
-  * [Código Foto carteirinha](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/fotoCarteirinha.dart)
+ * Descrição
+ * [Código Foto carteirinha](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/fotoCarteirinha.dart)
 5. QR Code pagamento
-  * Descrição
-  * [Código QR Code pagamento](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/pagamentoQR.dart)
+ * Descrição
+ * [Código QR Code pagamento](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/pagamentoQR.dart)
 6. Selecionar Valor
-  * Descrição
-  * [Código Selecionar valor](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/recarregarValor.dart)
+ * Descrição
+ * [Código Selecionar valor](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/recarregarValor.dart)
 7. QR Code Pix
-  * Descrição
-  * [Código QR Code Pix](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/recarregarQR.dart)
+ * Descrição
+ * [Código QR Code Pix](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/recarregarQR.dart)
 8. Configurações
-  * Descrição
-  * [Código Configurações](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/notifications.dart)
+ * Descrição
+ * [Código Configurações](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/notifications.dart)
 9. Perguntas frequentes
-  * Descrição
-  * [Código Perguntas frequentes](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/fAQ.dart)
+ * Descrição
+ * [Código Perguntas frequentes](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/fAQ.dart)
