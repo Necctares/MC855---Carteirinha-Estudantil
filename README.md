@@ -6,15 +6,15 @@ Projeto de MC855 - Carteirinha Estudantil
 
 ## Autenticacao dos alunos por meio de uma carteirinha -> dentro e fora da unicamp
 
-	login com site da dac p/ acesso livre a uma area desprotegida do app
+login com site da dac p/ acesso livre a uma area desprotegida do app
 		
-	-- Dentro da unicamp --
+-- Dentro da unicamp --
 
 token unico c/ acesso exclusivo por 1 dispositivo a areas consideradas sensiveis do app -> Autentificação por nº de telefone
 
-	-- Fora da unicamp --
+-- Fora da unicamp --
 
-	qr code com link e "id" de cada aluno que redirecionará para um site da unicamp
+qr code com link e "id" de cada aluno que redirecionará para um site da unicamp
 
 
 ## Recarga do saldo da carteirinha
@@ -45,8 +45,8 @@ token unico c/ acesso exclusivo por 1 dispositivo a areas consideradas sensiveis
 
 # 2- Sugestões:
 
- - Hyperledger indy -> autentificação por conhecidos proximos
+- Hyperledger indy -> autentificação por conhecidos proximos
 
- - Stripe p/ pagamentos com cartão
+- Stripe p/ pagamentos com cartão
 
- - API Banco do Brasil
+- API Banco do Brasil
