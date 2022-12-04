@@ -19,3 +19,19 @@ Instruções para configurar o Android Studio estão disponíveis no link abaixo
 A estrutura do FrontEnd está ilustrada na imagem abaixo.
 
 ![Diagrama do FrontEnd](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/MC855entrega6.png)
+
+## Telas do aplicativo
+
+Segue uma lista das telas criadas para o aplicativo, com descrição dos elementos presentes, funcionalidade e link para o código disponível nesse repositório.
+
+1- Tela inicial
+  * Descrição
+  * [Código tela inicial](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/telaInicial.dart)
+2- Menu Principal
+3- QR Code carteirinha
+4- Foto Carteirinha
+5- QR Code pagamento
+6- Selecionar Valor
+7- QR Code Pix
+8- Configurações
+9- Perguntas frequentes
