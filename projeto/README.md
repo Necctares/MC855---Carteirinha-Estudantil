@@ -34,20 +34,20 @@ Segue uma lista das telas criadas para o aplicativo, com descrição dos element
    * Descrição
    * [Código QR Code carteirinha](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/carteirinha.dart)
 4. Foto Carteirinha
- * Descrição
- * [Código Foto carteirinha](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/fotoCarteirinha.dart)
+   * Descrição
+   * [Código Foto carteirinha](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/fotoCarteirinha.dart)
 5. QR Code pagamento
- * Descrição
- * [Código QR Code pagamento](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/pagamentoQR.dart)
+   * Descrição
+   * [Código QR Code pagamento](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/pagamentoQR.dart)
 6. Selecionar Valor
- * Descrição
- * [Código Selecionar valor](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/recarregarValor.dart)
+   * Descrição
+   * [Código Selecionar valor](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/recarregarValor.dart)
 7. QR Code Pix
- * Descrição
- * [Código QR Code Pix](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/recarregarQR.dart)
+   * Descrição
+   * [Código QR Code Pix](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/recarregarQR.dart)
 8. Configurações
- * Descrição
- * [Código Configurações](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/notifications.dart)
+   * Descrição
+   * [Código Configurações](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/notifications.dart)
 9. Perguntas frequentes
- * Descrição
- * [Código Perguntas frequentes](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/fAQ.dart)
+   * Descrição
+   * [Código Perguntas frequentes](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/fAQ.dart)
