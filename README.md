@@ -23,7 +23,7 @@ No futuro uma integração entre o aplicativo descrito acima e o sistema da Unic
 
 O projeto está dividido em duas partes principais:
 
-- [FrontEnd](https://https://github.com/Necctares/MC855---Carteirinha-Estudantil/main/README.md)
+- [FrontEnd](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/README.md)
 - Backend
 
 # Considerações finais
