@@ -1,16 +1,19 @@
-# untitled
+# FrontEnd
 
-A new Flutter project.
+Código do FrontEnd desenvolvido durante o projeto.
 
-## Getting Started
+## Primeiros Passos
 
-This project is a starting point for a Flutter application.
+O código disponível nesse repositório foi desenvolvido em Flutter uma vez que os alunos possuiam certa familiaridade com a linguagem e ela possiblita desenvolvimento de código funcional em iOS, Android e Web.
 
-A few resources to get you started if this is your first Flutter project:
+Instruções para instalar Flutter no sistema operacional Windows estão disponíveis no link abaixo.
+[Instalar Flutter](https://docs.flutter.dev/get-started/install/windows)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+O código foi desenvolvido usando a IDE Android Studio que permite tanto o teste local quanto o teste em dispositivos móveis (Android no contexto geral, iOS caso se tenha disponível um computador com sistema operacional MacOS).
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Instruções para configurar o Android Studio estão disponíveis no link abaixo.
+[Configurar Android Studio](https://docs.flutter.dev/get-started/editor?tab=androidstudio)
+
+## Estrutura do FrontEnd
+
+A estrutura do FrontEnd está ilustrada na imagem abaixo.
