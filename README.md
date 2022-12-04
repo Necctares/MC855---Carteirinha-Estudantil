@@ -4,39 +4,44 @@ Projeto de MC855 - Carteirinha Estudantil
 
 # App 
 
-	## Autenticacao dos alunos por meio de uma carteirinha -> dentro e fora da unicamp
+## Autenticacao dos alunos por meio de uma carteirinha -> dentro e fora da unicamp
 
-		login com site da dac p/ acesso livre a uma area desprotegida do app
+	login com site da dac p/ acesso livre a uma area desprotegida do app
+		
+	-- Dentro da unicamp --
 
-		-- Dentro da unicamp --
+token unico c/ acesso exclusivo por 1 dispositivo a areas consideradas sensiveis do app -> Autentificação por nº de telefone
 
-		token unico c/ acesso exclusivo por 1 dispositivo a areas consideradas sensiveis do app -> Autentificação por nº de telefone
+	-- Fora da unicamp --
 
-		-- Fora da unicamp --
+	qr code com link e "id" de cada aluno que redirecionará para um site da unicamp
 
-		qr code com link e "id" de cada aluno que redirecionará para um site da unicamp
 
-	## Recarga do saldo da carteirinha
+## Recarga do saldo da carteirinha
 
-		-- recarga online por PIX (em aberto)
+-- recarga online por PIX (em aberto)
 
-		-- Stripe --> integrar tb com as cantinas da Unicamp por exemplo
+-- Stripe --> integrar tb com as cantinas da Unicamp por exemplo
 
-	## Ponto Eletronico
 
-		-- opção 1: detecção por NFC c/ desbloqueio pelo docente da sala e por horario
+## Ponto Eletronico
 
-		-- opção 2: gerar um qrcode na hora
+-- opção 1: detecção por NFC c/ desbloqueio pelo docente da sala e por horario
 
-	## Gerador de token unico p/ uso offline
+-- opção 2: gerar um qrcode na hora
 
-		-- Gerado por um funcionario c apresentação de algum documento fisico
 
-		### O que seria esse token
+## Gerador de token unico p/ uso offline
 
-		-- opção 1: qr code em papel
+-- Gerado por um funcionario c apresentação de algum documento fisico
 
-		-- opção 2: senha gerada na hora
+		
+### O que seria esse token
+
+-- opção 1: qr code em papel
+
+-- opção 2: senha gerada na hora
+
 
 # 2- Sugestões:
 
