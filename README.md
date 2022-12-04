@@ -1,52 +1,31 @@
 # MC855 Carteirinha-Estudantil
-Projeto de MC855 - Carteirinha Estudantil
-# Identidade Digital UNICAMP
+Projeto da disciplina MC855 do Instituto de Computação da Universidade Estadual de Campinas no segundo semestre de 2022
 
-# App 
+# Membros do Projeto
 
-## Autenticacao dos alunos por meio de uma carteirinha -> dentro e fora da unicamp
+- David Afonso 
+- Alan Freitas
+- Renan Hiroki
+- Leandro Garcia
 
-login com site da dac p/ acesso livre a uma area desprotegida do app
-		
--- Dentro da unicamp --
+# Descrição do projeto
 
-token unico c/ acesso exclusivo por 1 dispositivo a areas consideradas sensiveis do app -> Autentificação por nº de telefone
+Durante a disciplina os alunos se propuseram a desenvolver um aplicativo de identidade digital para ser usado pelos membros da comunidade da Universidade Estadual de Campinas (UNICAMP). O resultado final foi um produto viável mínimo (MVP na sigla em inglês) com uma primeira versão das seguintes funcionalidades implementadas:
 
--- Fora da unicamp --
+- O aplicativao realiza o login dos usuários cadastrados no banco de dados a partir das informações RA (matrícula da Unicamp) e da senha.
+- O aplicativo consegue gerar códigos PIX com valores fornecidos pelo usuário a partir da API do Banco do Brasil
+- O aplicativo gera um QR Code contendo a matrícula do aluno logado no aplicativo e um token para permitir o pagamento de refeições no restaurante universitário
+- O aplicativo tem uma interface para a geração de notificações no dispositivo do usuário que, com um refinamento, pode ser usada para gerar notificações quando o saldo de créditos na conta do usuário estiver muito baixo.
 
-qr code com link e "id" de cada aluno que redirecionará para um site da unicamp
+No futuro uma integração entre o aplicativo descrito acima e o sistema da Unicamp pode ser estudada.
 
+# Estrutura do projeto
 
-## Recarga do saldo da carteirinha
+O projeto está dividido em duas partes principais:
 
--- recarga online por PIX (em aberto)
+- [FrontEnd](https://https://github.com/Necctares/MC855---Carteirinha-Estudantil/main/README.md)
+- Backend
 
--- Stripe --> integrar tb com as cantinas da Unicamp por exemplo
+# Considerações finais
 
-
-## Ponto Eletronico
-
--- opção 1: detecção por NFC c/ desbloqueio pelo docente da sala e por horario
-
--- opção 2: gerar um qrcode na hora
-
-
-## Gerador de token unico p/ uso offline
-
--- Gerado por um funcionario c apresentação de algum documento fisico
-
-		
-### O que seria esse token
-
--- opção 1: qr code em papel
-
--- opção 2: senha gerada na hora
-
-
-# 2- Sugestões:
-
-- Hyperledger indy -> autentificação por conhecidos proximos
-
-- Stripe p/ pagamentos com cartão
-
-- API Banco do Brasil
+Caso haja um interesse de se implementar o código desenvolvido na Unicamp seria necessário uma discussão com membros da administração e um estudo do melhor modo de realizar essa integração.
