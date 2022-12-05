@@ -1,16 +1,16 @@
-# qrreader
+# QR Reader
 
-Leitor de QrCode Disciplina MC855
+Leitor de QrCode para ser usado em testes com os usuários
 
-## Getting Started
+## Primeiros Passos
 
-This project is a starting point for a Flutter application.
+O código disponível nesse repositório, assim como o código desenvolvido para o FrontEnd do aplicativo foi desenvolvido em Flutter.
 
-A few resources to get you started if this is your first Flutter project:
+Instruções para instalar Flutter no Windows e configurar o Android Studio estão disponíveis em [Instruções](https://github.com/Necctares/MC855---Carteirinha-Estudantil/tree/main/projeto)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Telas do aplicativo
+O aplicativo possui apenas a tela inicial, onde é realizada a leitura e verificação da validade do QR Code, uma tela completamente verde para ser mostrada caso o qr code lido seja válido e uma tela completamente vermelha para ser mostrada caso o qr code lido seja inválido.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Considerações
+
+No momento estamos tendo problemas com a verificação da validade do QR Code.
