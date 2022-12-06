@@ -12,7 +12,7 @@ Projeto da disciplina MC855 do Instituto de Computação da Universidade Estadua
 
 Durante a disciplina os alunos se propuseram a desenvolver um aplicativo de identidade digital para ser usado pelos membros da comunidade da Universidade Estadual de Campinas (UNICAMP). O resultado final foi um produto viável mínimo (MVP na sigla em inglês) com uma primeira versão das seguintes funcionalidades implementadas:
 
-- O aplicativao realiza o login dos usuários cadastrados no banco de dados a partir das informações RA (matrícula da Unicamp) e da senha.
+- O aplicativo realiza o login dos usuários cadastrados no banco de dados a partir das informações RA (matrícula da Unicamp) e da senha.
 - O aplicativo consegue gerar códigos PIX com valores fornecidos pelo usuário a partir da API do Banco do Brasil
 - O aplicativo gera um QR Code contendo a matrícula do aluno logado no aplicativo e um token para permitir o pagamento de refeições no restaurante universitário
 - O aplicativo tem uma interface para a geração de notificações no dispositivo do usuário que, com um refinamento, pode ser usada para gerar notificações quando o saldo de créditos na conta do usuário estiver muito baixo.
