@@ -61,8 +61,8 @@ Segue uma lista das telas criadas para o aplicativo, com descrição dos element
    * [Código QR Code Pix](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/recarregarQR.dart)
 8. Configurações
    * Descrição
-        - Funcionalidades:
-        - Elementos presentes:
+        - Funcionalidades: A tela possui as configurações de notificações disponíveis no aplicativo.
+        - Elementos presentes: Possui um botão do tipo switch para habilitar/desabilitar as notificações do aplicativo, uma caixa seletora do tipo dropdown para definir a frequência das notificações agendadas: diariamente, semanalmente ou mensalmente e uma caixa de texto para selecionar o valor de Saldo Mínimo que caso alcançado, enviará a notificação ao usuário.
    * [Código Configurações](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/projeto/lib/screens/notifications.dart)
 9. Perguntas frequentes
    * Descrição
