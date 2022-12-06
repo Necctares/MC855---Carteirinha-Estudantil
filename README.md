@@ -24,7 +24,7 @@ No futuro uma integração entre o aplicativo descrito acima e o sistema da Unic
 O projeto está dividido em duas partes principais:
 
 - [FrontEnd](https://github.com/Necctares/MC855---Carteirinha-Estudantil/tree/main/projeto)
-- Backend
+- [Backend](https://github.com/Necctares/MC855---Carteirinha-Estudantil/tree/main/carteirinhaBack)
 
 Houve a tentativa de implementação de um código de leitor de QR Code para ser usado em testes com os usuários. O código desenvolvido está disponível em [Código leitor de QR Code](https://github.com/Necctares/MC855---Carteirinha-Estudantil/tree/main/qrreader)
 
