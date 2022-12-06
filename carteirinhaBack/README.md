@@ -64,3 +64,5 @@ Ao inicializar o projeto, utilize o comando 'mvn package' e o maven irá baixar 
 
 Para fazer o deploy na cloud, basta configurar [este arquivo](https://github.com/Necctares/MC855---Carteirinha-Estudantil/blob/main/carteirinhaBack/src/main/resources/application.properties)
 com as informações pedidas entre as chaves { }.
+
+O serviço de transações pix está, atualmente, funcionando no ambiente de homologação do Banco do Brasil, assim não é necessário realizar nenhum tipo de configuração de contas bancárias para o seu funcionamento.
